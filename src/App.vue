@@ -5,4 +5,30 @@
   </div>
 </template>
 
-<style></style>
+<style>
+:root {
+  --primary-color: #6a040f;
+  --secondary-color: #ffba08;
+  --danger: #e76f51;
+  --primary-text-color: #fff;
+  --secondary-text-color: #000;
+  --warning: #f4a261;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(to right, #302b63, #24243e);
+  color: var(--primary-text-color);
+  font-family: "Roboto", sans-serif;
+}
+
+#app h1 {
+  text-align: center;
+  margin: 10px 0;
+}
+</style>
