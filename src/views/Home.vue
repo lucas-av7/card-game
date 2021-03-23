@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <button class="create-deck-button">Create new deck</button>
+    <button class="random-deck-button">New random deck</button>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ export default {
 <style scoped>
 .home {
   display: flex;
+  flex-direction: column;
   min-height: calc(100vh - 58px);
   place-content: center;
   place-items: center;
@@ -34,7 +36,22 @@ export default {
   width: 205px;
 }
 
-.create-deck-button:hover {
+.random-deck-button {
+  background-color: var(--secondary-color);
+  border-radius: 8px;
+  border: none;
+  color: var(--secondary-text-color);
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 15px;
+  outline: none;
+  transition: 0.5s;
+  width: 205px;
+}
+
+.create-deck-button:hover,
+.random-deck-button:hover {
   transform: scale(1.1);
 }
 </style>
