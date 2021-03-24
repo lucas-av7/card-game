@@ -14,7 +14,7 @@ describe("NewDeck.vue - view", () => {
     const p = wrapper.find(".search-text");
     expect(p.exists()).toBe(true);
     expect(p.element.tagName).toBe("P");
-    expect(p.text()).toBe("Search by card name");
+    expect(p.text()).toBe("Search by card name, types, rarity, sets, etc");
   });
 
   it("has a input field", () => {
