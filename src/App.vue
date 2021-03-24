@@ -31,4 +31,13 @@ body {
   text-align: center;
   margin: 10px 0;
 }
+
+.default-views {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 58px);
+  place-content: center;
+  place-items: center;
+  width: 100%;
+}
 </style>

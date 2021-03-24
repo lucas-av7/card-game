@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <button class="create-deck-button">Create new deck</button>
+    <button class="create-deck-button" @click="goToNewDeckView">
+      Create new deck
+    </button>
     <button class="random-deck-button">New random deck</button>
   </div>
 </template>
@@ -8,6 +10,11 @@
 <script>
 export default {
   name: "Home",
+  methods: {
+    goToNewDeckView() {
+      this.$router.push("/new-deck");
+    },
+  },
 };
 </script>
 
