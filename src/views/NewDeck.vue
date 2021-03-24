@@ -3,7 +3,7 @@
     <h2>Create new deck</h2>
     <p class="search-text">Search by card name</p>
     <section class="search-section">
-      <input type="text" class="input-card-search" />
+      <input class="input-card-search" type="text" placeholder="Ex: Half-Orc" />
       <button class="button-card-search">Search</button>
     </section>
   </div>
