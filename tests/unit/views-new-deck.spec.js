@@ -9,4 +9,22 @@ describe("NewDeck.vue - view", () => {
     expect(h2.exists()).toBe(true);
     expect(h2.text()).toBe("Create new deck");
   });
+
+  it("has a paragraph to explain the search field", () => {
+    const p = wrapper.find(".search-text");
+    expect(p.exists()).toBe(true);
+    expect(p.element.tagName).toBe("P");
+    expect(p.text()).toBe("Search by card name");
+  });
+
+  it("has a input field", () => {
+    const inputField = wrapper.find(".input-card-search");
+    expect(inputField.exists()).toBe(true);
+  });
+
+  it("has a submit button", () => {
+    const button = wrapper.find(".button-card-search");
+    expect(button.exists()).toBe(true);
+    expect(button.text()).toBe("Search");
+  });
 });

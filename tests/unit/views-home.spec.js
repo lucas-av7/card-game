@@ -30,5 +30,6 @@ describe("Home.vue - view", () => {
     const button = wrapper.find(".create-deck-button");
     await button.trigger("click");
     expect(goToNewDeckView).toHaveBeenCalled();
+    expect(wrapper.vm.$router.currentRoute.path).toBe("/new-deck");
   });
 });
