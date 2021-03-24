@@ -1,8 +1,25 @@
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, createLocalVue } from "@vue/test-utils";
+import Vuex from "vuex";
 import NewDeck from "@/views/NewDeck";
 
 describe("NewDeck.vue - view", () => {
-  const wrapper = shallowMount(NewDeck);
+  const localVue = createLocalVue();
+  localVue.use(Vuex);
+
+  let getters = {
+    getAutocomplete: () => [],
+  };
+
+  let store = new Vuex.Store({
+    getters,
+  });
+
+  const callGetAutocomplete = jest.spyOn(
+    NewDeck.methods,
+    "callGetAutocomplete"
+  );
+
+  const wrapper = shallowMount(NewDeck, { store, localVue });
 
   it("renders a H2", () => {
     const h2 = wrapper.find("h2");
@@ -26,5 +43,28 @@ describe("NewDeck.vue - view", () => {
     const button = wrapper.find(".button-card-search");
     expect(button.exists()).toBe(true);
     expect(button.text()).toBe("Search");
+  });
+
+  it("has a autocomplete on data", () => {
+    const data = wrapper.vm.$data;
+    expect("autocomplete" in data).toBe(true);
+  });
+
+  it("has searchText on data", () => {
+    const data = wrapper.vm.$data;
+    expect("searchText" in data).toBe(true);
+  });
+
+  it("updates searchText when input values on search field", () => {
+    const data = wrapper.vm.$data;
+    const inputField = wrapper.find(".input-card-search");
+    inputField.setValue("new value");
+    expect(data.searchText).toBe("new value");
+  });
+
+  it("calls callGetAutocomplete method when type on search field", async () => {
+    const inputField = wrapper.find(".input-card-search");
+    await inputField.trigger("click");
+    expect(callGetAutocomplete).toHaveBeenCalled();
   });
 });
