@@ -67,4 +67,15 @@ describe("NewDeck.vue - view", () => {
     await inputField.trigger("click");
     expect(callGetAutocomplete).toHaveBeenCalled();
   });
+
+  it("has AutoCompleteBox component", () => {
+    const autoCompleteBox = wrapper.findComponent({ name: "AutoCompleteBox" });
+    expect(autoCompleteBox.exists()).toBe(true);
+  });
+
+  it("change searchText when call autoCompleteSearch with parameter", async () => {
+    wrapper.vm.autoCompleteSearch("test");
+    const searchText = wrapper.vm.$data.searchText;
+    expect(searchText).toBe("test");
+  });
 });

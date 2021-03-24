@@ -32,25 +32,16 @@ body {
 .site-title {
   color: var(--primary-text-color);
   text-decoration: none;
+  display: inline-block;
+  margin: 10px;
 }
 
 #app h1 {
-  text-align: center;
-  margin: 10px 0;
   transition: 0.5s;
 }
 
 #app h1:hover {
   text-align: center;
   opacity: 0.75;
-}
-
-.default-views {
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - 58px);
-  place-content: center;
-  place-items: center;
-  width: 100%;
 }
 </style>
