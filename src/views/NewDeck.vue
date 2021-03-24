@@ -1,7 +1,7 @@
 <template>
   <div class="new-deck">
     <h2>Create new deck</h2>
-    <p class="search-text">Search by card name</p>
+    <p class="search-text">Search by card name, types, rarity, sets, etc</p>
     <section class="search-section">
       <input class="input-card-search" type="text" placeholder="Ex: Half-Orc" />
       <button class="button-card-search">Search</button>
