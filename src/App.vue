@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <h1>Card Game</h1>
+    <router-link to="/" active-class="site-title">
+      <h1>Card Game</h1>
+    </router-link>
     <router-view />
   </div>
 </template>
@@ -27,9 +29,20 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+.site-title {
+  color: var(--primary-text-color);
+  text-decoration: none;
+}
+
 #app h1 {
   text-align: center;
   margin: 10px 0;
+  transition: 0.5s;
+}
+
+#app h1:hover {
+  text-align: center;
+  opacity: 0.75;
 }
 
 .default-views {
