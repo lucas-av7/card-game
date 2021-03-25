@@ -7,6 +7,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: "App",
+};
+</script>
+
 <style>
 :root {
   --primary-color: #6a040f;

@@ -17,13 +17,11 @@
         />
         <button class="button-card-search">Search</button>
       </div>
-      <div>
-        <AutoCompleteBox
-          v-if="autoCompleteShow"
-          :words="getAutocomplete"
-          @wordClicked="autoCompleteSearch($event), autoCompleteToggle(false)"
-        />
-      </div>
+      <AutoCompleteBox
+        v-if="autoCompleteShow"
+        :words="getAutocomplete"
+        @wordClicked="autoCompleteSearch($event), autoCompleteToggle(false)"
+      />
     </section>
   </div>
 </template>

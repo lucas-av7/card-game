@@ -4,16 +4,29 @@
       Create new deck
     </button>
     <button class="random-deck-button">New random deck</button>
+
+    <section class="decksHub">
+      <template v-for="(deck, index) in getUsersDecks[0]">
+        <Deck :key="index" :deckCards="deck" />
+      </template>
+    </section>
   </div>
 </template>
 
 <script>
+import Deck from "@/components/Deck";
+import { mapGetters } from "vuex";
+
 export default {
   name: "Home",
   methods: {
     goToNewDeckView() {
       this.$router.push("/new-deck");
     },
+  },
+  components: { Deck },
+  computed: {
+    ...mapGetters(["getUsersDecks"]),
   },
 };
 </script>
@@ -22,7 +35,7 @@ export default {
 .home {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 58px);
+  min-height: calc(100vh - 175px);
   place-content: center;
   place-items: center;
   width: 100%;
@@ -60,5 +73,13 @@ export default {
 .create-deck-button:hover,
 .random-deck-button:hover {
   transform: scale(1.1);
+}
+
+.decksHub {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
 }
 </style>

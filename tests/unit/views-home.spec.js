@@ -1,17 +1,29 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
+import Vuex from "vuex";
 import Home from "@/views/Home";
+import { userDecksMock } from "./testUtils/decks";
 
 describe("Home.vue - view", () => {
   const localVue = createLocalVue();
   localVue.use(VueRouter);
+  localVue.use(Vuex);
+
+  let getters = {
+    getUsersDecks: () => userDecksMock,
+  };
+
   const router = new VueRouter();
+  let store = new Vuex.Store({
+    getters,
+  });
 
   const goToNewDeckView = jest.spyOn(Home.methods, "goToNewDeckView");
 
   const wrapper = shallowMount(Home, {
     localVue,
     router,
+    store,
   });
 
   it("renders a 'create new deck' button", () => {
@@ -31,5 +43,10 @@ describe("Home.vue - view", () => {
     await button.trigger("click");
     expect(goToNewDeckView).toHaveBeenCalled();
     expect(wrapper.vm.$router.currentRoute.path).toBe("/new-deck");
+  });
+
+  it("has Deck component", () => {
+    const deckComponent = wrapper.findComponent({ name: "Deck" });
+    expect(deckComponent.exists()).toBe(true);
   });
 });
