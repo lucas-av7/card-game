@@ -9,7 +9,12 @@
 
     <section class="decksHub">
       <template v-for="(deck, index) in getUsersDecks">
-        <Deck :key="index" :deckCards="deck" />
+        <Deck
+          :key="index"
+          :deckCards="deck"
+          :index="index"
+          @callViewDeck="viewDeck($event)"
+        />
       </template>
     </section>
   </div>
@@ -27,7 +32,7 @@ export default {
       this.$router.push("/new-deck");
     },
     async randomDeck() {
-      const minQtyCard = 3;
+      const minQtyCard = 60;
       let cards = 0;
       let deck = [];
 
@@ -37,6 +42,9 @@ export default {
       try {
         while (cards < minQtyCard) {
           const { data } = await scryFallRandomCard();
+
+          if (data.image_uris == undefined) continue;
+
           const card = {
             object: data.object,
             id: data.id,
@@ -65,6 +73,9 @@ export default {
       }
       this.$store.commit("changeGlobalLoading", false);
       this.$store.commit("changeAmountTrack", { cards: 0, minQtyCard: 0 });
+    },
+    viewDeck(index) {
+      this.$router.push({ name: "ViewDeck", params: { id: index + 1 } });
     },
   },
   components: { Deck },
@@ -119,10 +130,10 @@ export default {
 }
 
 .decksHub {
-  position: fixed;
   bottom: 20px;
-  left: 50%;
-  transform: translate(-50%);
   display: flex;
+  left: 50%;
+  position: fixed;
+  transform: translate(-50%);
 }
 </style>

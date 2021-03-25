@@ -8,6 +8,7 @@ config.showDeprecationWarnings = false;
 
 const goToNewDeckView = jest.fn();
 const randomDeck = jest.fn();
+const viewDeck = jest.fn();
 
 describe("Home.vue - view", () => {
   const localVue = createLocalVue();
@@ -30,6 +31,7 @@ describe("Home.vue - view", () => {
     methods: {
       goToNewDeckView,
       randomDeck,
+      viewDeck,
     },
   });
 
@@ -65,5 +67,10 @@ describe("Home.vue - view", () => {
     const button = wrapper.find(".random-deck-button");
     await button.trigger("click");
     expect(randomDeck).toHaveBeenCalled();
+  });
+
+  it("has viewDeck method", () => {
+    const viewDeck = wrapper.vm.viewDeck;
+    expect(viewDeck).not.toBe(undefined);
   });
 });

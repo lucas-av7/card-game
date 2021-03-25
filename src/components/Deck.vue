@@ -1,15 +1,15 @@
 <template>
-  <div class="deck">
-    <img :src="deckCards[0].image_uris.png" :alt="deckCards[0].name" />
-    <img :src="deckCards[1].image_uris.png" :alt="deckCards[1].name" />
-    <img :src="deckCards[2].image_uris.png" :alt="deckCards[2].name" />
+  <div class="deck" @click="$emit('callViewDeck', index)">
+    <img :src="deckCards[0].image_uris.small" :alt="deckCards[0].name" />
+    <img :src="deckCards[1].image_uris.small" :alt="deckCards[1].name" />
+    <img :src="deckCards[2].image_uris.small" :alt="deckCards[2].name" />
   </div>
 </template>
 
 <script>
 export default {
   name: "Deck",
-  props: ["deckCards"],
+  props: ["deckCards", "index"],
 };
 </script>
 
@@ -28,6 +28,7 @@ export default {
 }
 
 .deck img {
+  border-radius: 5px;
   bottom: 0;
   position: absolute;
   transform-origin: 50% 100%;
