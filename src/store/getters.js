@@ -8,4 +8,7 @@ export const getters = {
   getGlobalLoading: (state) => {
     return state.globalLoading;
   },
+  getAmountTrack: (state) => {
+    return state.amountTrack;
+  },
 };

@@ -4,12 +4,17 @@
       <i class="fas fa-gamepad"></i>
       <p>Loading, please wait<span>.</span><span>.</span><span>.</span></p>
     </div>
+
+    <AmountTrack class="amount-track"/>
   </div>
 </template>
 
 <script>
+import AmountTrack from "@/components/AmountTrack"
+
 export default {
   name: "GlobalLoading",
+  components: { AmountTrack }
 };
 </script>
 
@@ -59,6 +64,12 @@ export default {
 
 .loading-icon p span:last-child {
   animation-delay: 1.5s;
+}
+
+.amount-track {
+  right: 10px;
+  bottom: 10px;
+  position: absolute;
 }
 
 @keyframes rotate {

@@ -8,4 +8,9 @@ describe("GlobalLoading.vue - component", () => {
     const mainDiv = wrapper.find(".global-loading");
     expect(mainDiv.exists()).toBe(true);
   });
+
+  it("has AmountTrack component", () => {
+    const AmountTrack = wrapper.findComponent({ name: "AmountTrack" });
+    expect(AmountTrack.exists()).toBe(true);
+  });
 });

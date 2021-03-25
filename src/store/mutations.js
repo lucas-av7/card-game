@@ -11,4 +11,13 @@ export const mutations = {
   changeUsersDecks(state, newDeck) {
     state.userDecks = newDeck;
   },
+  changeGlobalLoading(state, status) {
+    state.globalLoading = status;
+  },
+  changeAmountTrack(state, { cards, minQtyCard }) {
+    let newAmountTrack = { ...state.amountTrack };
+    newAmountTrack.current = cards;
+    newAmountTrack.expected = minQtyCard;
+    state.amountTrack = newAmountTrack;
+  },
 };

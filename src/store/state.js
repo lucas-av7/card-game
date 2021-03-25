@@ -1,7 +1,9 @@
-import { userDecksMock } from "../../tests/unit/testUtils/decks";
-
 export const state = {
   autocomplete: [],
-  userDecks: [userDecksMock],
+  userDecks: [],
   globalLoading: false,
+  amountTrack: {
+    current: 0,
+    expected: 0,
+  },
 };
