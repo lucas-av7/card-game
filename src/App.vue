@@ -4,7 +4,7 @@
       <h1>Card Game</h1>
     </router-link>
     <router-view />
-    <GlobalLoading v-if="getGlobalLoading" />
+    <GlobalLoading v-show="getGlobalLoading" />
   </div>
 </template>
 

@@ -1,9 +1,23 @@
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, createLocalVue } from "@vue/test-utils";
 import App from "@/App";
+import Vuex from "vuex";
 
 describe("App.vue", () => {
+  const localVue = createLocalVue();
+  localVue.use(Vuex);
+
+  let getters = {
+    getGlobalLoading: () => false,
+  };
+
+  let store = new Vuex.Store({
+    getters,
+  });
+
   const wrapper = shallowMount(App, {
     stubs: ["router-link", "router-view"],
+    localVue,
+    store,
   });
 
   it("renders the component", () => {
