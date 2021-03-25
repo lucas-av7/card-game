@@ -4,12 +4,20 @@
       <h1>Card Game</h1>
     </router-link>
     <router-view />
+    <GlobalLoading v-if="getGlobalLoading" />
   </div>
 </template>
 
 <script>
+import GlobalLoading from "@/components/GlobalLoading";
+import { mapGetters } from "vuex";
+
 export default {
   name: "App",
+  components: { GlobalLoading },
+  computed: {
+    ...mapGetters(["getGlobalLoading"]),
+  },
 };
 </script>
 

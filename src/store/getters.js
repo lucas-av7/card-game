@@ -5,4 +5,7 @@ export const getters = {
   getUsersDecks: (state) => {
     return state.userDecks;
   },
+  getGlobalLoading: (state) => {
+    return state.globalLoading;
+  },
 };

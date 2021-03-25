@@ -10,4 +10,9 @@ describe("App.vue", () => {
     let msg = "Card Game";
     expect(wrapper.text()).toMatch(msg);
   });
+
+  it("has GlobalLoading component", () => {
+    const globalLoading = wrapper.findComponent({ name: "GlobalLoading" });
+    expect(globalLoading.exists()).toBe(true);
+  });
 });
