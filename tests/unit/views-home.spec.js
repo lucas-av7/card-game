@@ -3,6 +3,11 @@ import VueRouter from "vue-router";
 import Vuex from "vuex";
 import Home from "@/views/Home";
 import { userDecksMock } from "./testUtils/decks";
+import { config } from "@vue/test-utils";
+config.showDeprecationWarnings = false;
+
+const goToNewDeckView = jest.fn();
+const randomDeck = jest.fn();
 
 describe("Home.vue - view", () => {
   const localVue = createLocalVue();
@@ -18,12 +23,14 @@ describe("Home.vue - view", () => {
     getters,
   });
 
-  const goToNewDeckView = jest.spyOn(Home.methods, "goToNewDeckView");
-
   const wrapper = shallowMount(Home, {
     localVue,
     router,
     store,
+    methods: {
+      goToNewDeckView,
+      randomDeck,
+    },
   });
 
   it("renders a 'create new deck' button", () => {
@@ -42,11 +49,21 @@ describe("Home.vue - view", () => {
     const button = wrapper.find(".create-deck-button");
     await button.trigger("click");
     expect(goToNewDeckView).toHaveBeenCalled();
-    expect(wrapper.vm.$router.currentRoute.path).toBe("/new-deck");
   });
 
   it("has Deck component", () => {
     const deckComponent = wrapper.findComponent({ name: "Deck" });
     expect(deckComponent.exists()).toBe(true);
+  });
+
+  it("has randomDeck method", () => {
+    const randomDeck = wrapper.vm.randomDeck;
+    expect(randomDeck).not.toBe(undefined);
+  });
+
+  it("random-deck-button calling randomDeck method", async () => {
+    const button = wrapper.find(".random-deck-button");
+    await button.trigger("click");
+    expect(randomDeck).toHaveBeenCalled();
   });
 });

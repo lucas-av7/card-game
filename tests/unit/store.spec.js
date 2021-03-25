@@ -44,4 +44,42 @@ describe("Store - Vuex", () => {
   it("getters has getGlobalLoading function", () => {
     expect("getGlobalLoading" in store.getters).toBe(true);
   });
+
+  it("mutations has changeUsersDecks function", () => {
+    expect("changeUsersDecks" in store._mutations).toBe(true);
+  });
+
+  it("changeUsersDecks change the state", () => {
+    const { changeUsersDecks } = mutations;
+    const state = { userDecks: [] };
+    const newDeck = [{ id: 1 }, { id: 2 }];
+    changeUsersDecks(state, newDeck);
+    expect(state.userDecks.length).toBe(2);
+  });
+
+  it("mutations has changeGlobalLoading function", () => {
+    expect("changeGlobalLoading" in store._mutations).toBe(true);
+  });
+
+  it("changeGlobalLoading change the state", () => {
+    const { changeGlobalLoading } = mutations;
+    const state = { globalLoading: false };
+    const status = true;
+    changeGlobalLoading(state, status);
+    expect(state.globalLoading).toBe(true);
+  });
+
+  it("state has amountTrack", () => {
+    expect("amountTrack" in store.state).toBe(true);
+    expect(store.state.amountTrack.current).toBe(0);
+    expect(store.state.amountTrack.expected).toBe(0);
+  });
+
+  it("getters has getAmountTrack function", () => {
+    expect("getAmountTrack" in store.getters).toBe(true);
+  });
+
+  it("mutations has changeAmountTrack function", () => {
+    expect("changeAmountTrack" in store._mutations).toBe(true);
+  });
 });

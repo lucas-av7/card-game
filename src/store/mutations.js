@@ -10,6 +10,7 @@ export const mutations = {
   },
   changeUsersDecks(state, newDeck) {
     state.userDecks = newDeck;
+    localStorage.setItem("userDecks", JSON.stringify(newDeck));
   },
   changeGlobalLoading(state, status) {
     state.globalLoading = status;

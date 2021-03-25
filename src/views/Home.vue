@@ -3,10 +3,12 @@
     <button class="create-deck-button" @click="goToNewDeckView">
       Create new deck
     </button>
-    <button class="random-deck-button">New random deck</button>
+    <button class="random-deck-button" @click="randomDeck">
+      New random deck
+    </button>
 
     <section class="decksHub">
-      <template v-for="(deck, index) in getUsersDecks[0]">
+      <template v-for="(deck, index) in getUsersDecks">
         <Deck :key="index" :deckCards="deck" />
       </template>
     </section>
@@ -15,6 +17,7 @@
 
 <script>
 import Deck from "@/components/Deck";
+import { scryFallRandomCard } from "@/services/scryfall";
 import { mapGetters } from "vuex";
 
 export default {
@@ -22,6 +25,46 @@ export default {
   methods: {
     goToNewDeckView() {
       this.$router.push("/new-deck");
+    },
+    async randomDeck() {
+      const minQtyCard = 3;
+      let cards = 0;
+      let deck = [];
+
+      this.$store.commit("changeGlobalLoading", true);
+      this.$store.commit("changeAmountTrack", { cards, minQtyCard });
+
+      try {
+        while (cards < minQtyCard) {
+          const { data } = await scryFallRandomCard();
+          const card = {
+            object: data.object,
+            id: data.id,
+            name: data.name,
+            image_uris: data.image_uris,
+            type_line: data.type_line,
+          };
+
+          const isBasicLand = card.type_line.includes("Basic Land");
+          if (!isBasicLand) {
+            cards += 1;
+            this.$store.commit("changeAmountTrack", { cards, minQtyCard });
+          }
+
+          deck.push(card);
+        }
+
+        let userDecks = this.$store.getters.getUsersDecks;
+        const newDeck = [...userDecks, deck];
+
+        this.$store.commit("changeUsersDecks", newDeck);
+      } catch (error) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+      this.$store.commit("changeGlobalLoading", false);
+      this.$store.commit("changeAmountTrack", { cards: 0, minQtyCard: 0 });
     },
   },
   components: { Deck },
