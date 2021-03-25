@@ -18,6 +18,7 @@ export const userDecksMock = [
         border_crop:
           "https://c1.scryfall.com/file/scryfall-cards/border_crop/front/e/9/e9d5aee0-5963-41db-a22b-cfea40a967a3.jpg?1568003829",
       },
+      type_line: "Basic Land — Swamp",
     },
     {
       object: "card",
@@ -37,6 +38,7 @@ export const userDecksMock = [
         border_crop:
           "https://c1.scryfall.com/file/scryfall-cards/border_crop/front/e/9/e9d5aee0-5963-41db-a22b-cfea40a967a3.jpg?1568003829",
       },
+      type_line: "Enchantment — Aura",
     },
     {
       object: "card",
@@ -56,6 +58,7 @@ export const userDecksMock = [
         border_crop:
           "https://c1.scryfall.com/file/scryfall-cards/border_crop/front/e/9/e9d5aee0-5963-41db-a22b-cfea40a967a3.jpg?1568003829",
       },
+      type_line: "Enchantment Creature — Spirit",
     },
   ],
   [
@@ -77,6 +80,7 @@ export const userDecksMock = [
         border_crop:
           "https://c1.scryfall.com/file/scryfall-cards/border_crop/front/e/9/e9d5aee0-5963-41db-a22b-cfea40a967a3.jpg?1568003829",
       },
+      type_line: "Basic Land — Swamp",
     },
     {
       object: "card",
@@ -96,6 +100,7 @@ export const userDecksMock = [
         border_crop:
           "https://c1.scryfall.com/file/scryfall-cards/border_crop/front/e/9/e9d5aee0-5963-41db-a22b-cfea40a967a3.jpg?1568003829",
       },
+      type_line: "Enchantment — Aura",
     },
     {
       object: "card",
@@ -115,6 +120,7 @@ export const userDecksMock = [
         border_crop:
           "https://c1.scryfall.com/file/scryfall-cards/border_crop/front/e/9/e9d5aee0-5963-41db-a22b-cfea40a967a3.jpg?1568003829",
       },
+      type_line: "Enchantment Creature — Spirit",
     },
   ],
   [
@@ -136,6 +142,7 @@ export const userDecksMock = [
         border_crop:
           "https://c1.scryfall.com/file/scryfall-cards/border_crop/front/e/9/e9d5aee0-5963-41db-a22b-cfea40a967a3.jpg?1568003829",
       },
+      type_line: "Basic Land — Swamp",
     },
     {
       object: "card",
@@ -155,6 +162,7 @@ export const userDecksMock = [
         border_crop:
           "https://c1.scryfall.com/file/scryfall-cards/border_crop/front/e/9/e9d5aee0-5963-41db-a22b-cfea40a967a3.jpg?1568003829",
       },
+      type_line: "Enchantment — Aura",
     },
     {
       object: "card",
@@ -174,6 +182,7 @@ export const userDecksMock = [
         border_crop:
           "https://c1.scryfall.com/file/scryfall-cards/border_crop/front/e/9/e9d5aee0-5963-41db-a22b-cfea40a967a3.jpg?1568003829",
       },
+      type_line: "Enchantment Creature — Spirit",
     },
   ],
 ];
