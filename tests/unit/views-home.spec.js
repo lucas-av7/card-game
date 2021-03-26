@@ -9,6 +9,7 @@ config.showDeprecationWarnings = false;
 const goToNewDeckView = jest.fn();
 const randomDeck = jest.fn();
 const viewDeck = jest.fn();
+const deleteDeck = jest.fn();
 
 describe("Home.vue - view", () => {
   const localVue = createLocalVue();
@@ -32,6 +33,7 @@ describe("Home.vue - view", () => {
       goToNewDeckView,
       randomDeck,
       viewDeck,
+      deleteDeck,
     },
   });
 
@@ -72,5 +74,10 @@ describe("Home.vue - view", () => {
   it("has viewDeck method", () => {
     const viewDeck = wrapper.vm.viewDeck;
     expect(viewDeck).not.toBe(undefined);
+  });
+
+  it("has deleteDeck method", () => {
+    const deleteDeck = wrapper.vm.deleteDeck;
+    expect(deleteDeck).not.toBe(undefined);
   });
 });

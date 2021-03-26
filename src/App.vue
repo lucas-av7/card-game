@@ -23,10 +23,11 @@ export default {
 
 <style>
 :root {
+  --confirm: #5cc42c;
+  --danger: #d62828;
   --primary-color: #6a040f;
-  --secondary-color: #ffba08;
-  --danger: #e76f51;
   --primary-text-color: #fff;
+  --secondary-color: #ffba08;
   --secondary-text-color: #000;
   --warning: #f4a261;
 }
@@ -48,14 +49,5 @@ body {
   text-decoration: none;
   display: inline-block;
   margin: 10px;
-}
-
-#app h1 {
-  transition: 0.5s;
-}
-
-#app h1:hover {
-  text-align: center;
-  opacity: 0.75;
 }
 </style>

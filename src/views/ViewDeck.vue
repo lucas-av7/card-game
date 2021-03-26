@@ -10,17 +10,34 @@
       />
     </section>
     <div class="deck-status">
-      <p>Total cards: {{ totalCards }}</p>
-      <p>Basic land cards: {{ basicLandCards }}</p>
+      <div>
+        <p>Total cards: {{ totalCards }}</p>
+        <p>Basic land cards: {{ basicLandCards }}</p>
+      </div>
+      <button class="delete-deck" @click="showModal = true">Delete deck</button>
     </div>
+
+    <ModalConfirmation
+      v-if="showModal"
+      @close="showModal = false"
+      @confirm="deleteDeck"
+      msg="Delete deck?"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import ModalConfirmation from "@/components/ModalConfirmation";
 
 export default {
   name: "ViewDeck",
+  data() {
+    return {
+      showModal: false,
+    };
+  },
+  components: { ModalConfirmation },
   props: ["id"],
   computed: {
     ...mapGetters(["getUsersDecks"]),
@@ -33,6 +50,12 @@ export default {
     },
     totalCards() {
       return this.getUsersDecks[this.id - 1].length;
+    },
+  },
+  methods: {
+    deleteDeck() {
+      this.$router.push("/");
+      this.$store.dispatch("removeDeck", this.id - 1);
     },
   },
 };
@@ -64,6 +87,25 @@ export default {
 }
 
 .deck-status {
+  display: flex;
+  justify-content: space-between;
   margin: 10px;
+}
+
+.delete-deck {
+  background-color: var(--danger);
+  border-radius: 5px;
+  border: none;
+  color: var(--primary-text-color);
+  cursor: pointer;
+  font-size: 15px;
+  height: 40px;
+  outline: none;
+  transition: 0.5s;
+  width: 125px;
+}
+
+.delete-deck:hover {
+  filter: brightness(1.15);
 }
 </style>

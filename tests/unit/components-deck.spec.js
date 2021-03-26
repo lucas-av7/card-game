@@ -2,7 +2,7 @@ import { shallowMount } from "@vue/test-utils";
 import Deck from "@/components/Deck";
 import { userDecksMock } from "./testUtils/decks";
 
-describe("AutoCompleteBox.vue - component", () => {
+describe("Deck.vue - component", () => {
   const wrapper = shallowMount(Deck, {
     propsData: {
       deckCards: userDecksMock[0],

@@ -31,4 +31,21 @@ describe("ViewDeck.vue - view", () => {
     expect(mainDiv.exists()).toBe(true);
     expect(mainDiv.text()).toBe("Deck: 1");
   });
+
+  it("has delete-deck button", () => {
+    const deleteDeck = wrapper.find(".delete-deck");
+    expect(deleteDeck.exists()).toBe(true);
+    expect(deleteDeck.text()).toBe("Delete deck");
+  });
+
+  it("shows ModalConfirmation when delete-deck button is clicked", async () => {
+    const deleteDeck = wrapper.find(".delete-deck");
+    await deleteDeck.trigger("click");
+    expect(deleteDeck.text()).toBe("Delete deck");
+
+    const ModalConfirmation = wrapper.findComponent({
+      name: "ModalConfirmation",
+    });
+    expect(ModalConfirmation.exists()).toBe(true);
+  });
 });

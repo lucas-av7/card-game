@@ -12,8 +12,9 @@ export const actions = {
         console.log(error.response.headers);
       });
   },
-  addUsersDeck({ commit, state }, deck) {
-    console.log(state, deck);
-    return commit;
+  removeDeck({ commit, state }, index) {
+    let newDeck = [...state.userDecks];
+    newDeck.splice(index, 1);
+    commit("changeUsersDecks", newDeck);
   },
 };

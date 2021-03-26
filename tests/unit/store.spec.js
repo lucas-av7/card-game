@@ -32,10 +32,6 @@ describe("Store - Vuex", () => {
     expect("getUsersDecks" in store.getters).toBe(true);
   });
 
-  it("actions has addUsersDeck function", () => {
-    expect("addUsersDeck" in store._actions).toBe(true);
-  });
-
   it("state has globalLoading", () => {
     expect("globalLoading" in store.state).toBe(true);
     expect(store.state.globalLoading).toBe(false);
@@ -81,5 +77,9 @@ describe("Store - Vuex", () => {
 
   it("mutations has changeAmountTrack function", () => {
     expect("changeAmountTrack" in store._mutations).toBe(true);
+  });
+
+  it("actions has removeDeck function", () => {
+    expect("removeDeck" in store._actions).toBe(true);
   });
 });
