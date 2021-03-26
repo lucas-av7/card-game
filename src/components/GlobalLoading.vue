@@ -5,16 +5,16 @@
       <p>Loading, please wait<span>.</span><span>.</span><span>.</span></p>
     </div>
 
-    <AmountTrack class="amount-track"/>
+    <AmountTrack class="amount-track" />
   </div>
 </template>
 
 <script>
-import AmountTrack from "@/components/AmountTrack"
+import AmountTrack from "@/components/AmountTrack";
 
 export default {
   name: "GlobalLoading",
-  components: { AmountTrack }
+  components: { AmountTrack },
 };
 </script>
 
