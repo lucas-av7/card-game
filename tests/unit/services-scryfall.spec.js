@@ -1,7 +1,23 @@
-import { instance } from "@/services/scryfall.js";
+import * as scryfall from "@/services/scryfall.js";
 
 describe("Scryfall - service", () => {
   it("points to correct api url", () => {
-    expect(instance.defaults.baseURL).toBe("https://api.scryfall.com");
+    expect(scryfall.instance.defaults.baseURL).toBe("https://api.scryfall.com");
+  });
+
+  it("scryFallSets method exists", () => {
+    expect(scryfall.scryFallSets).toBeDefined();
+  });
+
+  it("scryFallRandomCard method exists", () => {
+    expect(scryfall.scryFallRandomCard).toBeDefined();
+  });
+
+  it("scryFallSearchCard method exists", () => {
+    expect(scryfall.scryFallSearchCard).toBeDefined();
+  });
+
+  it("scryFallAutoComplete method exists", () => {
+    expect(scryfall.scryFallAutoComplete).toBeDefined();
   });
 });
