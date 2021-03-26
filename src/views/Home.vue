@@ -7,16 +7,18 @@
       New random deck
     </button>
 
-    <section class="decksHub">
-      <template v-for="(deck, index) in getUsersDecks">
-        <Deck
-          :key="index"
-          :deckCards="deck"
-          :index="index"
-          @callViewDeck="viewDeck($event)"
-        />
-      </template>
-    </section>
+    <div class="outDecksHub">
+      <section class="decksHub">
+        <template v-for="(deck, index) in getUsersDecks">
+          <Deck
+            :key="index"
+            :deckCards="deck"
+            :index="index"
+            @callViewDeck="viewDeck($event)"
+          />
+        </template>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -129,11 +131,23 @@ export default {
   transform: scale(1.1);
 }
 
-.decksHub {
-  bottom: 20px;
+.outDecksHub {
+  align-items: center;
+  bottom: 5px;
   display: flex;
+  justify-content: center;
   left: 50%;
   position: fixed;
   transform: translate(-50%);
+  width: 100%;
+}
+
+.decksHub {
+  display: flex;
+  margin: 0 auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 10px;
+  width: auto;
 }
 </style>

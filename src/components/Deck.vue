@@ -16,11 +16,13 @@ export default {
 <style scoped>
 .deck {
   cursor: pointer;
-  display: flex;
-  margin: 0 35px;
-  position: relative;
   transition: 0.5s;
-  width: 110px;
+  min-width: 190px;
+  height: 215px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .deck:hover {
@@ -29,11 +31,10 @@ export default {
 
 .deck img {
   border-radius: 5px;
-  bottom: 0;
   position: absolute;
   transform-origin: 50% 100%;
   transition: 0.5s;
-  width: 100%;
+  width: 125px;
 }
 
 .deck img:first-child {
