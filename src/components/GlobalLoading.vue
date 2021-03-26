@@ -5,16 +5,20 @@
       <p>Loading, please wait<span>.</span><span>.</span><span>.</span></p>
     </div>
 
-    <AmountTrack class="amount-track" />
+    <AmountTrack class="amount-track" v-if="amount.expected" />
   </div>
 </template>
 
 <script>
 import AmountTrack from "@/components/AmountTrack";
+import { mapGetters } from "vuex";
 
 export default {
   name: "GlobalLoading",
   components: { AmountTrack },
+  computed: {
+    ...mapGetters({ amount: "getAmountTrack" }),
+  },
 };
 </script>
 
