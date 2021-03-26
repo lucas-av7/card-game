@@ -2,6 +2,7 @@ import { shallowMount, createLocalVue } from "@vue/test-utils";
 import Vuex from "vuex";
 import NewDeck from "@/views/NewDeck";
 import { config } from "@vue/test-utils";
+import { userDecksMock } from "./testUtils/decks";
 config.showDeprecationWarnings = false;
 
 describe("NewDeck.vue - view", () => {
@@ -17,11 +18,19 @@ describe("NewDeck.vue - view", () => {
   });
 
   const methods = {
-    callGetAutocomplete: jest.fn(),
     autoCompleteSearch: jest.spyOn(NewDeck.methods, "autoCompleteSearch"),
+    callGetAutocomplete: jest.fn(),
+    searchCard: jest.fn(),
   };
 
-  const wrapper = shallowMount(NewDeck, { store, localVue, methods });
+  const wrapper = shallowMount(NewDeck, {
+    localVue,
+    methods,
+    propsData: {
+      deckCards: userDecksMock[0],
+    },
+    store,
+  });
 
   it("renders a H2", () => {
     const h2 = wrapper.find("h2");
@@ -33,7 +42,7 @@ describe("NewDeck.vue - view", () => {
     const p = wrapper.find(".search-text");
     expect(p.exists()).toBe(true);
     expect(p.element.tagName).toBe("P");
-    expect(p.text()).toBe("Search by card name, types, rarity, sets, etc");
+    expect(p.text()).toBe("Search by card name");
   });
 
   it("has a input field", () => {
@@ -81,9 +90,36 @@ describe("NewDeck.vue - view", () => {
     expect(searchText).toBe("test");
   });
 
-  it("calls autoCompleteSearch when word is clicked", () => {
+  it("calls autoCompleteSearch and searchCard when word is clicked", () => {
     const autoCompleteBox = wrapper.findComponent({ name: "AutoCompleteBox" });
     autoCompleteBox.vm.$emit("autoCompleteSearch");
     expect(methods.autoCompleteSearch).toHaveBeenCalled();
+    expect(methods.searchCard).toHaveBeenCalled();
+  });
+
+  it("calls searchCard when button-card-search is clicked", async () => {
+    methods.searchCard.mockClear();
+    const button = wrapper.find(".button-card-search");
+    await button.trigger("click");
+    expect(methods.searchCard).toHaveBeenCalled();
+  });
+
+  it("calls searchCard when enter is pressed inside input", async () => {
+    methods.searchCard.mockClear();
+    const input = wrapper.find(".input-card-search");
+    await input.trigger("keyup.enter");
+    expect(methods.searchCard).toHaveBeenCalled();
+  });
+
+  it("has cards array on data", async () => {
+    const data = wrapper.vm.$data;
+    expect("cards" in data).toBe(true);
+    expect(Array.isArray(data.cards)).toBe(true);
+  });
+
+  it("render cards properly", () => {
+    const cardsSection = wrapper.find(".cards");
+    const imgs = cardsSection.findAll("img");
+    expect(imgs.length).toBe(3);
   });
 });
