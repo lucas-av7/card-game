@@ -32,6 +32,8 @@ describe("NewDeck.vue - view", () => {
     store,
   });
 
+  const data = wrapper.vm.$data;
+
   it("renders a H2", () => {
     const h2 = wrapper.find("h2");
     expect(h2.exists()).toBe(true);
@@ -57,17 +59,14 @@ describe("NewDeck.vue - view", () => {
   });
 
   it("has a autocomplete on data", () => {
-    const data = wrapper.vm.$data;
     expect("autocomplete" in data).toBe(true);
   });
 
   it("has searchText on data", () => {
-    const data = wrapper.vm.$data;
     expect("searchText" in data).toBe(true);
   });
 
   it("updates searchText when input values on search field", () => {
-    const data = wrapper.vm.$data;
     const inputField = wrapper.find(".input-card-search");
     inputField.setValue("new value");
     expect(data.searchText).toBe("new value");
@@ -112,7 +111,6 @@ describe("NewDeck.vue - view", () => {
   });
 
   it("has cards array on data", async () => {
-    const data = wrapper.vm.$data;
     expect("cards" in data).toBe(true);
     expect(Array.isArray(data.cards)).toBe(true);
   });
