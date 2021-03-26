@@ -14,9 +14,14 @@
           @input="callGetAutocomplete"
           v-model="searchText"
           @click.stop="autoCompleteToggle(true)"
-          @keyup.enter="searchCard"
+          @keyup.enter="(pagination.page = 1), searchCard()"
         />
-        <button class="button-card-search" @click="searchCard">Search</button>
+        <button
+          class="button-card-search"
+          @click="(pagination.page = 1), searchCard()"
+        >
+          Search
+        </button>
       </div>
       <transition name="scale-in">
         <AutoCompleteBox
@@ -26,6 +31,31 @@
         />
       </transition>
     </section>
+
+    <section class="pagination-box" v-show="showPagination">
+      <div class="page-info">
+        <p>
+          The last search founds a total of {{ pagination.totalCards }}
+          {{ pagination.totalCards ? "cards" : "card" }}.
+        </p>
+      </div>
+      <div class="buttons-area">
+        <button
+          :disabled="pagination.page == 1"
+          @click="(pagination.page -= 1), searchCard()"
+        >
+          Previous
+        </button>
+        <span>{{ pagination.page }}</span>
+        <button
+          :disabled="!pagination.hasMore"
+          @click="(pagination.page += 1), searchCard()"
+        >
+          Next
+        </button>
+      </div>
+    </section>
+
     <section class="cards">
       <img
         v-for="(card, index) in cards"
@@ -43,16 +73,20 @@ import { scryFallSearchCard } from "@/services/scryfall";
 import { mapGetters } from "vuex";
 import _ from "lodash";
 
-import { userDecksMock } from "../../tests/unit/testUtils/decks";
-
 export default {
   name: "NewDeck",
   data() {
     return {
       autocomplete: [],
-      searchText: "",
       autoCompleteShow: false,
-      cards: userDecksMock[0],
+      showPagination: false,
+      cards: [],
+      pagination: {
+        hasMore: false,
+        page: 1,
+        totalCards: 0,
+      },
+      searchText: "",
     };
   },
   components: { AutoCompleteBox },
@@ -65,6 +99,7 @@ export default {
     }, 600),
     autoCompleteSearch(value) {
       this.searchText = value;
+      this.pagination.page = 1;
       this.searchCard();
       this.callGetAutocomplete();
     },
@@ -75,19 +110,27 @@ export default {
       if (this.searchText.length < 3) return;
       this.autoCompleteShow = false;
       this.cards = [];
+      this.showPagination = false;
       this.$store.commit("changeGlobalLoading", true);
       try {
-        const { data } = await scryFallSearchCard(this.searchText);
+        const { data } = await scryFallSearchCard(
+          this.searchText,
+          this.pagination.page
+        );
         const cards = data.data.filter((card) => {
           return card.image_uris != undefined;
         });
+        this.pagination.totalCards = data.total_cards;
+        this.pagination.hasMore = data.has_more;
         this.cards = cards;
       } catch (error) {
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
+        this.pagination.totalCards = 0;
         this.cards = [];
       }
+      this.showPagination = true;
       this.$store.commit("changeGlobalLoading", false);
     },
   },
@@ -159,13 +202,60 @@ export default {
   outline: none;
 }
 
-.cards {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 10px;
+.pagination-box {
+  border-top: 1px solid #77a;
+  border-bottom: 1px solid #77a;
+  margin-top: 15px;
   width: 100%;
+  height: 50px;
+  /* background-color: bisque; */
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.pagination-box p {
+  display: inline-block;
+  width: auto;
+  color: var(--secondary-color);
+}
+
+.buttons-area button {
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  height: 30px;
+  outline: none;
+  transition: 0.5s;
+  width: 100px;
+}
+
+.buttons-area button:first-child {
+  background-color: #ccc;
+  color: var(--secondary-text-color);
+  margin-right: 5px;
+}
+
+.buttons-area button:last-child {
+  background-color: var(--secondary-color);
+  color: var(--secondary-text-color);
+  margin-left: 5px;
+}
+
+.buttons-area button:hover {
+  filter: brightness(1.15);
+}
+
+.buttons-area button:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.buttons-area button:disabled:hover {
+  filter: none;
 }
 
 .cards img {

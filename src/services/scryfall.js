@@ -12,8 +12,8 @@ export const scryFallRandomCard = () => {
   return instance.get("/cards/random");
 };
 
-export const scryFallSearchCard = (text) => {
-  return instance.get(`/cards/search?q=${text}`);
+export const scryFallSearchCard = (text, page = 1) => {
+  return instance.get(`/cards/search?q=${text}&page=${page}`);
 };
 
 export const scryFallAutoComplete = (text) => {

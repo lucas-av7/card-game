@@ -26,9 +26,6 @@ describe("NewDeck.vue - view", () => {
   const wrapper = shallowMount(NewDeck, {
     localVue,
     methods,
-    propsData: {
-      deckCards: userDecksMock[0],
-    },
     store,
   });
 
@@ -115,9 +112,47 @@ describe("NewDeck.vue - view", () => {
     expect(Array.isArray(data.cards)).toBe(true);
   });
 
-  it("render cards properly", () => {
+  it("render cards properly", async () => {
+    await wrapper.setData({ cards: userDecksMock[0] });
     const cardsSection = wrapper.find(".cards");
     const imgs = cardsSection.findAll("img");
     expect(imgs.length).toBe(3);
+  });
+
+  it("has pagination on data", () => {
+    expect("pagination" in data).toBe(true);
+    expect(data.pagination.page).toBe(1);
+    expect(data.pagination.totalCards).toBe(0);
+    expect(data.pagination.hasMore).toBe(false);
+  });
+
+  it("has showPagination on data", () => {
+    expect("showPagination" in data).toBe(true);
+    expect(data.showPagination).toBe(false);
+  });
+
+  it("has pagination box with buttons and status", () => {
+    const paginationBox = wrapper.find(".pagination-box");
+    const status = paginationBox.find("p");
+    const buttons = paginationBox.findAll("button");
+    expect(paginationBox.exists()).toBe(true);
+    expect(status.exists()).toBe(true);
+    expect(buttons.length).toBe(2);
+  });
+
+  it("Previous is disbled in page one and Next when in last page", async () => {
+    const buttonsArea = wrapper.find(".buttons-area");
+    const buttons = buttonsArea.findAll("button");
+    await wrapper.setData({ pagination: { page: 1, hasMore: false } });
+    expect(buttons.at(0).element.disabled).toBe(true);
+    expect(buttons.at(1).element.disabled).toBe(true);
+  });
+
+  it("Previous is enabled in page two+ and Next when has more pages", async () => {
+    const buttonsArea = wrapper.find(".buttons-area");
+    const buttons = buttonsArea.findAll("button");
+    await wrapper.setData({ pagination: { page: 2, hasMore: true } });
+    expect(buttons.at(0).element.disabled).toBe(false);
+    expect(buttons.at(1).element.disabled).toBe(false);
   });
 });
