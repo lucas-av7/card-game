@@ -1,6 +1,8 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import Vuex from "vuex";
 import NewDeck from "@/views/NewDeck";
+import { config } from "@vue/test-utils";
+config.showDeprecationWarnings = false;
 
 describe("NewDeck.vue - view", () => {
   const localVue = createLocalVue();
@@ -14,12 +16,12 @@ describe("NewDeck.vue - view", () => {
     getters,
   });
 
-  const callGetAutocomplete = jest.spyOn(
-    NewDeck.methods,
-    "callGetAutocomplete"
-  );
+  const methods = {
+    callGetAutocomplete: jest.fn(),
+    autoCompleteSearch: jest.spyOn(NewDeck.methods, "autoCompleteSearch"),
+  };
 
-  const wrapper = shallowMount(NewDeck, { store, localVue });
+  const wrapper = shallowMount(NewDeck, { store, localVue, methods });
 
   it("renders a H2", () => {
     const h2 = wrapper.find("h2");
@@ -65,7 +67,7 @@ describe("NewDeck.vue - view", () => {
   it("calls callGetAutocomplete method when type on search field", async () => {
     const inputField = wrapper.find(".input-card-search");
     await inputField.trigger("click");
-    expect(callGetAutocomplete).toHaveBeenCalled();
+    expect(methods.callGetAutocomplete).toHaveBeenCalled();
   });
 
   it("has AutoCompleteBox component", () => {
@@ -74,8 +76,14 @@ describe("NewDeck.vue - view", () => {
   });
 
   it("change searchText when call autoCompleteSearch with parameter", async () => {
-    wrapper.vm.autoCompleteSearch("test");
+    await wrapper.vm.autoCompleteSearch("test");
     const searchText = wrapper.vm.$data.searchText;
     expect(searchText).toBe("test");
+  });
+
+  it("calls autoCompleteSearch when word is clicked", () => {
+    const autoCompleteBox = wrapper.findComponent({ name: "AutoCompleteBox" });
+    autoCompleteBox.vm.$emit("autoCompleteSearch");
+    expect(methods.autoCompleteSearch).toHaveBeenCalled();
   });
 });

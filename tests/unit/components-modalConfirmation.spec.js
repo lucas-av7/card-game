@@ -26,4 +26,17 @@ describe("ModalConfirmation.vue - component", () => {
     await button.trigger("click");
     expect(wrapper.emitted().confirm).toBeTruthy();
   });
+
+  it("renders 'Are you sure?' when passed as prop", async () => {
+    await wrapper.setProps({ msg: "Are you sure?" });
+    const modalBox = wrapper.find(".modal-box p");
+    expect(modalBox.text()).toBe("Are you sure?");
+  });
+
+  it("renders Cancel and Confirm buttons", () => {
+    const cancelButton = wrapper.find(".cancel");
+    const confirmButton = wrapper.find(".confirm");
+    expect(cancelButton.exists()).toBe(true);
+    expect(confirmButton.exists()).toBe(true);
+  });
 });

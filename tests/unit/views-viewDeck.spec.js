@@ -48,4 +48,11 @@ describe("ViewDeck.vue - view", () => {
     });
     expect(ModalConfirmation.exists()).toBe(true);
   });
+
+  it("renders deck-status correctly", async () => {
+    const deckStatus = wrapper.find(".deck-status");
+    const paragraphs = deckStatus.findAll("p");
+    expect(paragraphs.at(0).text()).toBe("Total cards: 3");
+    expect(paragraphs.at(1).text()).toBe("Basic land cards: 1");
+  });
 });

@@ -20,4 +20,9 @@ describe("Deck.vue - component", () => {
     await p.trigger("click");
     expect(wrapper.emitted().callViewDeck).toBeTruthy();
   });
+
+  it("has three images to compound a deck", () => {
+    const images = wrapper.findAll(".deck img");
+    expect(images.length).toBe(3);
+  });
 });

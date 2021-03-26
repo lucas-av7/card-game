@@ -6,10 +6,12 @@ import { userDecksMock } from "./testUtils/decks";
 import { config } from "@vue/test-utils";
 config.showDeprecationWarnings = false;
 
-const goToNewDeckView = jest.fn();
-const randomDeck = jest.fn();
-const viewDeck = jest.fn();
-const deleteDeck = jest.fn();
+const methods = {
+  goToNewDeckView: jest.fn(),
+  randomDeck: jest.fn(),
+  viewDeck: jest.fn(),
+  deleteDeck: jest.fn(),
+};
 
 describe("Home.vue - view", () => {
   const localVue = createLocalVue();
@@ -29,12 +31,7 @@ describe("Home.vue - view", () => {
     localVue,
     router,
     store,
-    methods: {
-      goToNewDeckView,
-      randomDeck,
-      viewDeck,
-      deleteDeck,
-    },
+    methods,
   });
 
   it("renders a 'create new deck' button", () => {
@@ -52,7 +49,7 @@ describe("Home.vue - view", () => {
   it("moves to new-deck route when click on 'create new deck' button", async () => {
     const button = wrapper.find(".create-deck-button");
     await button.trigger("click");
-    expect(goToNewDeckView).toHaveBeenCalled();
+    expect(methods.goToNewDeckView).toHaveBeenCalled();
   });
 
   it("has Deck component", () => {
@@ -68,7 +65,7 @@ describe("Home.vue - view", () => {
   it("random-deck-button calling randomDeck method", async () => {
     const button = wrapper.find(".random-deck-button");
     await button.trigger("click");
-    expect(randomDeck).toHaveBeenCalled();
+    expect(methods.randomDeck).toHaveBeenCalled();
   });
 
   it("has viewDeck method", () => {
@@ -79,5 +76,11 @@ describe("Home.vue - view", () => {
   it("has deleteDeck method", () => {
     const deleteDeck = wrapper.vm.deleteDeck;
     expect(deleteDeck).not.toBe(undefined);
+  });
+
+  it("calls viewDeck when Deck is clicked", async () => {
+    const deckComponent = wrapper.findComponent({ name: "Deck" });
+    await deckComponent.vm.$emit("callViewDeck");
+    expect(methods.viewDeck).toHaveBeenCalled();
   });
 });

@@ -9,8 +9,8 @@ describe("AmountTrack.vue - component", () => {
   let getters = {
     getAmountTrack: () => {
       return {
-        current: 0,
-        expected: 0,
+        current: 5,
+        expected: 10,
       };
     },
   };
@@ -23,5 +23,10 @@ describe("AmountTrack.vue - component", () => {
   it("has a main div amount-track", () => {
     const mainDiv = wrapper.find(".amount-track");
     expect(mainDiv.exists()).toBe(true);
+  });
+
+  it("it shows current/expected text", () => {
+    const mainDiv = wrapper.find(".amount-track");
+    expect(mainDiv.text()).toBe("5/10");
   });
 });

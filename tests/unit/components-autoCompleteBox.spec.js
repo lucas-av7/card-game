@@ -19,4 +19,10 @@ describe("AutoCompleteBox.vue - component", () => {
     await p.trigger("click");
     expect(wrapper.emitted().wordClicked).toBeTruthy();
   });
+
+  it("renders words correctly", async () => {
+    const mainDiv = wrapper.find(".auto-complete-box");
+    await wrapper.setProps({ words: ["Grand Orc"] });
+    expect(mainDiv.text()).toBe("Grand Orc");
+  });
 });
