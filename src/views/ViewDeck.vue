@@ -81,7 +81,10 @@ export default {
 }
 
 .cards img {
+  background-size: 210px;
+  background: url(../assets/place-holder.jpg) no-repeat scroll 0 0;
   border-radius: 10px;
+  height: 293px;
   margin: 10px 0;
   width: 210px;
 }
