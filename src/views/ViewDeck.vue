@@ -85,7 +85,7 @@ export default {
   background: url(../assets/place-holder.jpg) no-repeat scroll 0 0;
   border-radius: 10px;
   height: 293px;
-  margin: 10px 0;
+  margin: 5px;
   width: 210px;
 }
 
@@ -110,5 +110,13 @@ export default {
 
 .delete-deck:hover {
   filter: brightness(1.15);
+}
+
+@media screen and (max-width: 440px) {
+  .cards img {
+    height: 244px;
+    margin: 5px 2px;
+    width: 175px;
+  }
 }
 </style>
