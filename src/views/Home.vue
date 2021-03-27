@@ -47,19 +47,40 @@ export default {
 
           if (data.image_uris == undefined) continue;
 
+          const isBasicLand = data.type_line.includes("Basic Land");
+
+          let sameCard = 0;
+          let indexSameCard = 0;
+
+          deck.map((card, index) => {
+            if (card.id == data.id) {
+              sameCard = deck[index].amount;
+              indexSameCard = index;
+            }
+          });
+
+          if (sameCard) {
+            if (isBasicLand || sameCard < 4) {
+              deck[indexSameCard].amount += 1;
+              cards += 1;
+              this.$store.commit("changeAmountTrack", { cards, minQtyCard });
+              continue;
+            } else {
+              continue;
+            }
+          }
+
           const card = {
             object: data.object,
             id: data.id,
             name: data.name,
             image_uris: data.image_uris,
             type_line: data.type_line,
+            amount: 1,
           };
 
-          const isBasicLand = card.type_line.includes("Basic Land");
-          if (!isBasicLand) {
-            cards += 1;
-            this.$store.commit("changeAmountTrack", { cards, minQtyCard });
-          }
+          cards += 1;
+          this.$store.commit("changeAmountTrack", { cards, minQtyCard });
 
           deck.push(card);
         }
