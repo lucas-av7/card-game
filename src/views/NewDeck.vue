@@ -258,8 +258,17 @@ export default {
   filter: none;
 }
 
+.cards {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 10px;
+  width: 100%;
+}
+
 .cards img {
-  background-size: 210px;
+  background-size: contain;
   background: url(../assets/place-holder.jpg) no-repeat scroll 0 0;
   border-radius: 10px;
   height: 293px;

@@ -32,6 +32,7 @@ export default {
   position: absolute;
   top: 40px;
   width: 100%;
+  z-index: 10;
 }
 
 .auto-complete-box p {

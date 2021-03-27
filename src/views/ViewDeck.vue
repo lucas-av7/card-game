@@ -63,7 +63,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .view-deck {
   width: 100%;
 }
@@ -104,7 +104,7 @@ export default {
 }
 
 .cards img {
-  background-size: 210px;
+  background-size: contain;
   background: url(../assets/place-holder.jpg) no-repeat scroll 0 0;
   border-radius: 10px;
   height: 293px;
