@@ -2,12 +2,14 @@
   <div class="view-deck">
     <h2>Deck: {{ id }}</h2>
     <section class="cards">
-      <img
+      <div
+        class="card-box"
         v-for="(card, index) in getUsersDecks[id - 1]"
         :key="index"
-        :src="card.image_uris.normal"
-        :alt="card.name"
-      />
+      >
+        <p>{{ card.amount }}</p>
+        <img :src="card.image_uris.normal" :alt="card.name" />
+      </div>
     </section>
     <div class="deck-status">
       <div>
@@ -80,6 +82,27 @@ export default {
   width: 100%;
 }
 
+.card-box {
+  position: relative;
+  width: auto;
+}
+
+.cards p {
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  color: var(--primary-text-color);
+  font-size: 14px;
+  height: 30px;
+  left: 50%;
+  line-height: 30px;
+  position: absolute;
+  text-align: center;
+  top: -7px;
+  transform: translate(-50%);
+  width: 30px;
+  z-index: 2;
+}
+
 .cards img {
   background-size: 210px;
   background: url(../assets/place-holder.jpg) no-repeat scroll 0 0;
@@ -87,6 +110,7 @@ export default {
   height: 293px;
   margin: 5px;
   width: 210px;
+  z-index: 1;
 }
 
 .deck-status {
