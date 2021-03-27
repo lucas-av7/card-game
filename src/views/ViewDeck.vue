@@ -104,8 +104,10 @@ export default {
 }
 
 .cards img {
+  background-image: url(../assets/place-holder.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: contain;
-  background: url(../assets/place-holder.jpg) no-repeat scroll 0 0;
   border-radius: 10px;
   height: 293px;
   margin: 5px;
