@@ -1,8 +1,8 @@
 <template>
   <div class="deck" @click="$emit('callViewDeck', index)">
-    <img :src="deckCards[0].image_uris.small" :alt="deckCards[0].name" />
-    <img :src="deckCards[1].image_uris.small" :alt="deckCards[1].name" />
     <img :src="deckCards[2].image_uris.small" :alt="deckCards[2].name" />
+    <img :src="deckCards[1].image_uris.small" :alt="deckCards[1].name" />
+    <img :src="deckCards[0].image_uris.small" :alt="deckCards[0].name" />
   </div>
 </template>
 
