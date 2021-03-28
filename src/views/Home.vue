@@ -89,33 +89,29 @@ export default {
   width: 100%;
 }
 
-.create-deck-button {
-  background-color: var(--primary-color);
-  border-radius: 10px;
+.create-deck-button,
+.random-deck-button {
+  border-radius: 8px;
   border: none;
-  color: var(--primary-text-color);
   cursor: pointer;
-  display: block;
-  font-size: 28px;
-  height: 150px;
   outline: none;
-  padding: 15px;
   transition: 0.5s;
   width: 205px;
 }
 
+.create-deck-button {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  font-size: 28px;
+  height: 150px;
+}
+
 .random-deck-button {
   background-color: var(--secondary-color);
-  border-radius: 8px;
-  border: none;
   color: var(--secondary-text-color);
-  cursor: pointer;
   font-size: 18px;
   height: 50px;
   margin-top: 15px;
-  outline: none;
-  transition: 0.5s;
-  width: 205px;
 }
 
 .create-deck-button:hover,
@@ -141,5 +137,25 @@ export default {
   overflow-y: hidden;
   padding: 0 10px;
   width: auto;
+}
+
+@media screen and (max-height: 580px) {
+  .home {
+    display: flex;
+    flex-direction: row;
+    place-content: flex-end;
+    place-items: flex-start;
+  }
+
+  .create-deck-button {
+    font-size: 18px;
+    height: 50px;
+    width: 175px;
+  }
+
+  .random-deck-button {
+    margin: 0 10px;
+    width: 175px;
+  }
 }
 </style>

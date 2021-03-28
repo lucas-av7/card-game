@@ -198,4 +198,27 @@ export default {
     bottom: 0;
   }
 }
+
+@media screen and (max-height: 450px) {
+  .tmp-deck {
+    height: 150px;
+  }
+
+  .card-box {
+    height: 110px;
+    margin-left: -60px;
+  }
+
+  .card-box:hover {
+    margin-left: -55px;
+    margin-right: 45px;
+  }
+
+  .card-box img {
+    border-radius: 10px;
+    box-shadow: -4px 0 0 0 rgba(0, 0, 0, 0.4);
+    height: 110px;
+    width: 79px;
+  }
+}
 </style>
