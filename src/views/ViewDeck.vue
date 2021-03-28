@@ -14,7 +14,6 @@
     <div class="deck-status">
       <div>
         <p>Total cards: {{ totalCards }}</p>
-        <p>Basic land cards: {{ basicLandCards }}</p>
       </div>
       <button class="delete-deck" @click="showModal = true">Delete deck</button>
     </div>
@@ -51,7 +50,11 @@ export default {
       return count;
     },
     totalCards() {
-      return this.getUsersDecks[this.id - 1].length;
+      let count = 0;
+      this.getUsersDecks[this.id - 1].map((card) => {
+        count = count + card.amount;
+      });
+      return count;
     },
   },
   methods: {
@@ -118,6 +121,7 @@ export default {
 .deck-status {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 10px;
 }
 
