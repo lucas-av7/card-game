@@ -208,6 +208,7 @@ export default {
 
 .input-card-search {
   background-color: var(--primary-text-color);
+  border-radius: 0;
   color: var(--secondary-text-color);
   font-size: 18px;
   padding: 5px;
