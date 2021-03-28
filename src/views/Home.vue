@@ -35,67 +35,35 @@ export default {
     },
     async randomDeck() {
       const minQtyCard = 60;
-      let cards = 0;
-      let deck = [];
-
+      this.$store.commit("changeTmpDeck", []);
       this.$store.commit("changeGlobalLoading", true);
-      this.$store.commit("changeAmountTrack", { cards, minQtyCard });
+      this.$store.commit("changeAmountTrack", { cards: 0, minQtyCard });
 
       try {
-        while (cards < minQtyCard) {
+        while (this.tmpDeck.length < minQtyCard) {
           const { data } = await scryFallRandomCard();
 
           if (data.image_uris == undefined) continue;
 
-          const isBasicLand = data.type_line.includes("Basic Land");
-
-          let sameCard = 0;
-          let indexSameCard = 0;
-
-          deck.map((card, index) => {
-            if (card.id == data.id) {
-              sameCard = deck[index].amount;
-              indexSameCard = index;
-            }
+          this.$store.dispatch("addCardToTmpDeck", data);
+          this.$store.commit("changeAmountTrack", {
+            cards: this.tmpDeck.length,
+            minQtyCard,
           });
-
-          if (sameCard) {
-            if (isBasicLand || sameCard < 4) {
-              deck[indexSameCard].amount += 1;
-              cards += 1;
-              this.$store.commit("changeAmountTrack", { cards, minQtyCard });
-              continue;
-            } else {
-              continue;
-            }
-          }
-
-          const card = {
-            object: data.object,
-            id: data.id,
-            name: data.name,
-            image_uris: data.image_uris,
-            type_line: data.type_line,
-            amount: 1,
-          };
-
-          cards += 1;
-          this.$store.commit("changeAmountTrack", { cards, minQtyCard });
-
-          deck.push(card);
         }
-
-        let userDecks = this.$store.getters.getUsersDecks;
-        const newDeck = [...userDecks, deck];
-
-        this.$store.commit("changeUsersDecks", newDeck);
       } catch (error) {
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
       }
+
+      let userDecks = this.getUsersDecks;
+      const newDecks = [...userDecks, this.tmpDeck];
+
+      this.$store.commit("changeUsersDecks", newDecks);
       this.$store.commit("changeGlobalLoading", false);
       this.$store.commit("changeAmountTrack", { cards: 0, minQtyCard: 0 });
+      this.$store.commit("changeTmpDeck", []);
     },
     viewDeck(index) {
       this.$router.push({ name: "ViewDeck", params: { id: index + 1 } });
@@ -103,7 +71,10 @@ export default {
   },
   components: { Deck },
   computed: {
-    ...mapGetters(["getUsersDecks"]),
+    ...mapGetters({
+      tmpDeck: "getTmpDeck",
+      getUsersDecks: "getUsersDecks",
+    }),
   },
 };
 </script>
