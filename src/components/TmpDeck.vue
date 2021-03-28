@@ -146,6 +146,7 @@ export default {
 }
 
 .status-deck {
+  text-align: center;
   align-items: center;
   border-left: 3px solid var(--secondary-color);
   display: flex;

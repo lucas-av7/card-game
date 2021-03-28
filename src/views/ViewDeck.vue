@@ -162,10 +162,18 @@ export default {
 }
 
 @media screen and (max-width: 440px) {
-  .cards img {
-    height: 244px;
-    margin: 5px 2px;
-    width: 175px;
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .delete-deck {
+    background-color: var(--danger);
+    color: var(--primary-text-color);
+    margin-left: 0;
+    margin-top: 5px;
   }
 }
 </style>

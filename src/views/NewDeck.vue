@@ -173,14 +173,14 @@ export default {
   color: var(--secondary-color);
 }
 
-.new-deck p {
+.new-deck > p {
   margin: 10px auto;
 }
 
 .search-section {
   margin: 0 auto;
   position: relative;
-  width: 490px;
+  max-width: 490px;
 }
 
 .search-flex-box {
@@ -234,7 +234,6 @@ export default {
   margin-top: 15px;
   width: 100%;
   height: 50px;
-  /* background-color: bisque; */
   max-width: 100%;
   display: flex;
   justify-content: space-between;
@@ -381,6 +380,32 @@ export default {
   100% {
     transform: scaleY(1);
     transform-origin: 0% 100%;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .search-section {
+    margin: 0 10px;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .pagination-box {
+    padding: 0 5px;
+  }
+
+  .pagination-box p {
+    display: inline-block;
+    width: 180px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .pagination-box {
+    width: 100%;
+    height: 100px;
+    flex-direction: column;
+    justify-content: space-evenly;
   }
 }
 </style>
