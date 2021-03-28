@@ -25,6 +25,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "TmpDeck",
+  props: ["editId"],
   computed: {
     ...mapGetters({ tmpDeck: "getTmpDeck" }),
     totalCards() {
@@ -38,13 +39,21 @@ export default {
   methods: {
     saveDeck() {
       let userDecks = this.$store.getters.getUsersDecks;
-      const newDeck = [...userDecks, this.tmpDeck];
+      const newDeck = [...userDecks];
+
+      if (this.editId) {
+        newDeck[this.editId - 1] = this.tmpDeck;
+      } else {
+        newDeck.push(this.tmpDeck);
+      }
+
       this.$store.commit("changeUsersDecks", newDeck);
       this.$store.commit("changeTmpDeck", []);
       this.$router.push("/");
     },
     cancelDeck() {
       this.$store.commit("changeTmpDeck", []);
+      this.$router.push("/");
     },
     removeCard(index) {
       this.$store.dispatch("removeCardFromTmpDeck", index);

@@ -34,4 +34,14 @@ describe("Router - Vue Router", () => {
     expect(home[0].component.name).toBe("ViewDeck");
     expect(home[0].props).toBe(true);
   });
+
+  it("Router has EditDeck route", () => {
+    const home = router.routes.filter((route) => {
+      return route.name == "EditDeck";
+    });
+    expect(home.length).toBe(1);
+    expect(home[0].path).toBe("/edit-deck/:id");
+    expect(home[0].component.name).toBe("NewDeck");
+    expect(home[0].props).toBe(true);
+  });
 });

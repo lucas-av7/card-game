@@ -2,10 +2,34 @@ import { shallowMount, createLocalVue } from "@vue/test-utils";
 import { userDecksMock } from "./testUtils/decks";
 import Vuex from "vuex";
 import ViewDeck from "@/views/ViewDeck";
+import NewDeck from "@/views/NewDeck";
+import { config } from "@vue/test-utils";
+import VueRouter from "vue-router";
+config.showDeprecationWarnings = false;
+
+const methods = {
+  editDeck: jest.spyOn(ViewDeck.methods, "editDeck"),
+};
 
 describe("ViewDeck.vue - view", () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
+  localVue.use(VueRouter);
+
+  const routes = [
+    {
+      path: "/edit-deck/:id",
+      name: "EditDeck",
+      component: NewDeck,
+      props: true,
+    },
+  ];
+
+  const router = new VueRouter({
+    mode: "history",
+    base: process.env.BASE_URL,
+    routes,
+  });
 
   let getters = {
     getUsersDecks: () => userDecksMock,
@@ -19,6 +43,8 @@ describe("ViewDeck.vue - view", () => {
     localVue,
     store,
     propsData: { id: 1 },
+    methods,
+    router,
   });
 
   it("has a main div view-deck", () => {
@@ -30,6 +56,29 @@ describe("ViewDeck.vue - view", () => {
     const mainDiv = wrapper.find("h2");
     expect(mainDiv.exists()).toBe(true);
     expect(mainDiv.text()).toBe("Deck: 1");
+  });
+
+  it("has edit-deck button", () => {
+    const editDeck = wrapper.find(".edit-deck");
+    expect(editDeck.exists()).toBe(true);
+    expect(editDeck.text()).toBe("Edit deck");
+  });
+
+  it("has editDeck method", () => {
+    const editDeck = wrapper.vm.editDeck;
+    expect(editDeck).not.toBe(undefined);
+  });
+
+  it("edit-deck button should calls editDeck method", async () => {
+    methods.editDeck.mockClear();
+    const editDeck = wrapper.find(".edit-deck");
+    await editDeck.trigger("click");
+    expect(methods.editDeck).toHaveBeenCalled();
+  });
+
+  it("editDeck method should move to EditDeck page", async () => {
+    expect(wrapper.vm.$route.name).toBe("EditDeck");
+    expect(wrapper.vm.$route.params.id).toBe(1);
   });
 
   it("has delete-deck button", () => {

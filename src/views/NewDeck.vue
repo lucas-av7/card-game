@@ -1,6 +1,7 @@
 <template>
   <div class="new-deck" @click.stop="autoCompleteToggle(false)">
-    <h2>Create new deck</h2>
+    <h2 v-if="id">Edit deck {{ id }}</h2>
+    <h2 v-else>Create new deck</h2>
     <p class="search-text">Search by card name</p>
     <section class="search-section">
       <div class="search-flex-box">
@@ -64,7 +65,7 @@
     </section>
 
     <transition name="scale-in-bottom">
-      <TmpDeck v-show="tmpDeck.length > 0" />
+      <TmpDeck v-show="tmpDeck.length > 0" :editId="id" />
     </transition>
   </div>
 </template>
@@ -78,6 +79,7 @@ import _ from "lodash";
 
 export default {
   name: "NewDeck",
+  props: ["id"],
   data() {
     return {
       autocomplete: [],
@@ -151,6 +153,10 @@ export default {
   },
   created() {
     this.$store.commit("changeAutocomplete", []);
+    if (this.id) {
+      let userDecks = this.$store.getters.getUsersDecks;
+      this.$store.commit("changeTmpDeck", userDecks[this.id - 1]);
+    }
   },
 };
 </script>

@@ -15,7 +15,12 @@
       <div>
         <p>Total cards: {{ totalCards }}</p>
       </div>
-      <button class="delete-deck" @click="showModal = true">Delete deck</button>
+      <div class="buttons">
+        <button class="edit-deck" @click="editDeck">Edit deck</button>
+        <button class="delete-deck" @click="showModal = true">
+          Delete deck
+        </button>
+      </div>
     </div>
 
     <ModalConfirmation
@@ -61,6 +66,9 @@ export default {
     deleteDeck() {
       this.$router.push("/");
       this.$store.dispatch("removeDeck", this.id - 1);
+    },
+    editDeck() {
+      this.$router.push({ name: "EditDeck", params: { id: this.id } });
     },
   },
 };
@@ -125,11 +133,10 @@ export default {
   margin: 10px;
 }
 
+.edit-deck,
 .delete-deck {
-  background-color: var(--danger);
   border-radius: 5px;
   border: none;
-  color: var(--primary-text-color);
   cursor: pointer;
   font-size: 15px;
   height: 40px;
@@ -138,7 +145,19 @@ export default {
   width: 125px;
 }
 
-.delete-deck:hover {
+.edit-deck {
+  background-color: var(--secondary-color);
+  color: var(--secondary-text-color);
+}
+
+.delete-deck {
+  background-color: var(--danger);
+  color: var(--primary-text-color);
+  margin-left: 10px;
+}
+
+.delete-deck:hover,
+.edit-deck:hover {
   filter: brightness(1.15);
 }
 

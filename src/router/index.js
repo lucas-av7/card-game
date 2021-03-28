@@ -23,6 +23,12 @@ const routes = [
     component: ViewDeck,
     props: true,
   },
+  {
+    path: "/edit-deck/:id",
+    name: "EditDeck",
+    component: NewDeck,
+    props: true,
+  },
 ];
 
 const router = new VueRouter({

@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import NewDeck from "@/views/NewDeck";
 import { config } from "@vue/test-utils";
 import { userDecksMock } from "./testUtils/decks";
+import { mutations } from "@/store/mutations.js";
+
 config.showDeprecationWarnings = false;
 
 describe("NewDeck.vue - view", () => {
@@ -11,13 +13,21 @@ describe("NewDeck.vue - view", () => {
 
   let getters = {
     getAutocomplete: () => [],
-    getTmpDeck: () => ["card"],
+    getTmpDeck: (state) => {
+      return state.tmpDeck;
+    },
+    getUsersDecks: (state) => {
+      return state.userDecks;
+    },
   };
 
   let store = new Vuex.Store({
     getters,
-    state: { tmpDeck: [] },
-    mutations: { changeAutocomplete: jest.fn() },
+    state: { tmpDeck: [], userDecks: userDecksMock },
+    mutations: {
+      changeAutocomplete: jest.fn(),
+      changeTmpDeck: mutations.changeTmpDeck,
+    },
   });
 
   const methods = {
@@ -35,10 +45,23 @@ describe("NewDeck.vue - view", () => {
 
   const data = wrapper.vm.$data;
 
+  const wrapperEditMode = shallowMount(NewDeck, {
+    localVue,
+    methods,
+    store,
+    propsData: { id: 1 },
+  });
+
   it("renders a H2", () => {
     const h2 = wrapper.find("h2");
     expect(h2.exists()).toBe(true);
+  });
+
+  it("H2 text changes depending on having id params or not", () => {
+    const h2 = wrapper.find("h2");
     expect(h2.text()).toBe("Create new deck");
+    const h2EditMode = wrapperEditMode.find("h2");
+    expect(h2EditMode.text()).toBe("Edit deck 1");
   });
 
   it("has a paragraph to explain the search field", () => {
@@ -169,5 +192,9 @@ describe("NewDeck.vue - view", () => {
   it("has TmpDeck component", () => {
     const TmpDeck = wrapper.findComponent({ name: "TmpDeck" });
     expect(TmpDeck.exists()).toBe(true);
+  });
+
+  it("When in edit mode, loads the deck to tmpDeck", () => {
+    expect(wrapperEditMode.vm.$store.state.tmpDeck.length).toBe(3);
   });
 });
