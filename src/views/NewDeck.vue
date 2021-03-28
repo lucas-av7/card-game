@@ -57,18 +57,21 @@
     </section>
 
     <section class="cards">
-      <img
-        v-for="(card, index) in cards"
-        :key="index"
-        :src="card.image_uris.normal"
-        :alt="card.name"
-      />
+      <div class="card-box" v-for="(card, index) in cards" :key="index">
+        <img :src="card.image_uris.normal" :alt="card.name" />
+        <button class="add-card-button" @click="addCard(card)">&plus;</button>
+      </div>
     </section>
+
+    <transition name="scale-in-bottom">
+      <TmpDeck v-show="tmpDeck.length > 0" />
+    </transition>
   </div>
 </template>
 
 <script>
 import AutoCompleteBox from "@/components/AutoCompleteBox";
+import TmpDeck from "@/components/TmpDeck";
 import { scryFallSearchCard } from "@/services/scryfall";
 import { mapGetters } from "vuex";
 import _ from "lodash";
@@ -89,12 +92,16 @@ export default {
       searchText: "",
     };
   },
-  components: { AutoCompleteBox },
+  components: { AutoCompleteBox, TmpDeck },
   computed: {
-    ...mapGetters(["getAutocomplete"]),
+    ...mapGetters({
+      tmpDeck: "getTmpDeck",
+      getAutocomplete: "getAutocomplete",
+    }),
   },
   methods: {
     callGetAutocomplete: _.debounce(function () {
+      if (this.searchText.length < 2) return;
       this.$store.dispatch("fetchAutocomplete", this.searchText);
     }, 600),
     autoCompleteSearch(value) {
@@ -133,6 +140,17 @@ export default {
       this.showPagination = true;
       this.$store.commit("changeGlobalLoading", false);
     },
+    addCard(card) {
+      this.$store.dispatch("addCardToTmpDeck", card);
+    },
+  },
+  watch: {
+    searchText: function (value) {
+      if (value.length < 2) this.$store.commit("changeAutocomplete", []);
+    },
+  },
+  created() {
+    this.$store.commit("changeAutocomplete", []);
   },
 };
 </script>
@@ -141,6 +159,7 @@ export default {
 .new-deck {
   min-height: calc(100vh - 58px);
   width: 100%;
+  padding-bottom: 215px;
 }
 
 .new-deck h2 {
@@ -267,6 +286,29 @@ export default {
   width: 100%;
 }
 
+.card-box {
+  margin: 5px;
+  position: relative;
+  width: auto;
+}
+
+.cards .add-card-button {
+  background-color: var(--confirm);
+  border-radius: 50%;
+  border: none;
+  bottom: 7px;
+  color: var(--secondary-text-color);
+  cursor: pointer;
+  font-size: 25px;
+  height: 30px;
+  left: 50%;
+  outline: none;
+  position: absolute;
+  transform: translate(-50%);
+  width: 30px;
+  z-index: 2;
+}
+
 .cards img {
   background-image: url(../assets/place-holder.jpg);
   background-position: center;
@@ -274,7 +316,6 @@ export default {
   background-size: contain;
   border-radius: 10px;
   height: 293px;
-  margin: 5px;
   width: 210px;
 }
 
@@ -304,6 +345,35 @@ export default {
   100% {
     transform: scaleY(1);
     transform-origin: 100% 0%;
+  }
+}
+
+.scale-in-bottom-enter-active {
+  animation: scale-in-bt-vr-tp 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.scale-in-bottom-leave-active {
+  animation: scale-out-bt-vr-tp 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+@keyframes scale-out-bt-vr-tp {
+  0% {
+    transform: scaleY(1);
+    transform-origin: 0% 100%;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: 0% 100%;
+  }
+}
+
+@keyframes scale-in-bt-vr-tp {
+  0% {
+    transform: scaleY(0);
+    transform-origin: 0% 100%;
+  }
+  100% {
+    transform: scaleY(1);
+    transform-origin: 0% 100%;
   }
 }
 </style>

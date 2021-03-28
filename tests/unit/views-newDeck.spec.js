@@ -11,16 +11,20 @@ describe("NewDeck.vue - view", () => {
 
   let getters = {
     getAutocomplete: () => [],
+    getTmpDeck: () => ["card"],
   };
 
   let store = new Vuex.Store({
     getters,
+    state: { tmpDeck: [] },
+    mutations: { changeAutocomplete: jest.fn() },
   });
 
   const methods = {
     autoCompleteSearch: jest.spyOn(NewDeck.methods, "autoCompleteSearch"),
     callGetAutocomplete: jest.fn(),
     searchCard: jest.fn(),
+    addCard: jest.fn(),
   };
 
   const wrapper = shallowMount(NewDeck, {
@@ -154,5 +158,16 @@ describe("NewDeck.vue - view", () => {
     await wrapper.setData({ pagination: { page: 2, hasMore: true } });
     expect(buttons.at(0).element.disabled).toBe(false);
     expect(buttons.at(1).element.disabled).toBe(false);
+  });
+
+  it("Should call addCard when add-card-button is clicked", async () => {
+    const addCardButton = wrapper.find(".add-card-button");
+    await addCardButton.trigger("click");
+    expect(methods.addCard).toHaveBeenCalled();
+  });
+
+  it("has TmpDeck component", () => {
+    const TmpDeck = wrapper.findComponent({ name: "TmpDeck" });
+    expect(TmpDeck.exists()).toBe(true);
   });
 });

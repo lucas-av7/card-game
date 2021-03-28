@@ -82,4 +82,39 @@ describe("Store - Vuex", () => {
   it("actions has removeDeck function", () => {
     expect("removeDeck" in store._actions).toBe(true);
   });
+
+  it("state has tmpDeck array", () => {
+    expect("tmpDeck" in store.state).toBe(true);
+    expect(Array.isArray(store.state.tmpDeck)).toBe(true);
+  });
+
+  it("actions has addCardToTmpDeck function", () => {
+    expect("addCardToTmpDeck" in store._actions).toBe(true);
+  });
+
+  it("mutations has changeTmpDeck function", () => {
+    expect("changeTmpDeck" in store._mutations).toBe(true);
+  });
+
+  it("changeTmpDeck change the state", () => {
+    const { changeTmpDeck } = mutations;
+    const state = { tmpDeck: [] };
+    const tmpDeck = ["one", "two"];
+    changeTmpDeck(state, tmpDeck);
+    expect(state.tmpDeck.length).toBe(2);
+  });
+
+  it("getters has getTmpDeck function", () => {
+    expect("getTmpDeck" in store.getters).toBe(true);
+  });
+
+  it("getTmpDeck should return tmpDeck", () => {
+    const tmpDeck = store.getters.getTmpDeck;
+    const storeTmpDeck = store.state.tmpDeck;
+    expect(tmpDeck === storeTmpDeck).toBe(true);
+  });
+
+  it("actions has removeCardFromTmpDeck function", () => {
+    expect("removeCardFromTmpDeck" in store._actions).toBe(true);
+  });
 });

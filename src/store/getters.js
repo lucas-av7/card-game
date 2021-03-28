@@ -11,4 +11,7 @@ export const getters = {
   getAmountTrack: (state) => {
     return state.amountTrack;
   },
+  getTmpDeck: (state) => {
+    return state.tmpDeck;
+  },
 };

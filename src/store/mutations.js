@@ -21,4 +21,7 @@ export const mutations = {
     newAmountTrack.expected = minQtyCard;
     state.amountTrack = newAmountTrack;
   },
+  changeTmpDeck(state, newTmpDeck) {
+    state.tmpDeck = newTmpDeck;
+  },
 };
