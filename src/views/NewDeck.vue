@@ -153,6 +153,7 @@ export default {
   },
   created() {
     this.$store.commit("changeAutocomplete", []);
+    this.$store.commit("changeTmpDeck", []);
     if (this.id) {
       let userDecks = this.$store.getters.getUsersDecks;
       this.$store.commit("changeTmpDeck", userDecks[this.id - 1]);
