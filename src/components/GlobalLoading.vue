@@ -41,7 +41,11 @@ export default {
 }
 
 .loading-icon i {
-  animation: rotate 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite both;
+  -webkit-animation: rotating 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  -moz-animation: rotating 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  -ms-animation: rotating 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  -o-animation: rotating 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  animation: rotating 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
   font-size: 80px;
   margin-bottom: 20px;
 }
@@ -76,11 +80,31 @@ export default {
   position: absolute;
 }
 
-@keyframes rotate {
-  0% {
-    transform: rotate(0) scale(1);
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
   }
-  100% {
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
