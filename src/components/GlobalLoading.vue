@@ -30,6 +30,7 @@ export default {
   top: 0;
   left: 0;
   background-color: #000000bb;
+  z-index: 9999;
 }
 
 .loading-icon {

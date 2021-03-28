@@ -29,7 +29,7 @@ export default {
 .modal-confirmation {
   height: 100vh;
   position: fixed;
-  z-index: 9999;
+  z-index: 9998;
 }
 
 .overlay {
