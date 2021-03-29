@@ -1,7 +1,15 @@
 <template>
   <div class="deck" @click="$emit('callViewDeck', index)">
-    <img :src="deckCards[2].image_uris.small" :alt="deckCards[2].name" />
-    <img :src="deckCards[1].image_uris.small" :alt="deckCards[1].name" />
+    <img
+      v-if="deckCards[2]"
+      :src="deckCards[2].image_uris.small"
+      :alt="deckCards[2].name"
+    />
+    <img
+      v-if="deckCards[1]"
+      :src="deckCards[1].image_uris.small"
+      :alt="deckCards[1].name"
+    />
     <img :src="deckCards[0].image_uris.small" :alt="deckCards[0].name" />
   </div>
 </template>
