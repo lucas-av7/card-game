@@ -117,4 +117,13 @@ describe("Store - Vuex", () => {
   it("actions has removeCardFromTmpDeck function", () => {
     expect("removeCardFromTmpDeck" in store._actions).toBe(true);
   });
+
+  it("state has loadingAutoComplete", () => {
+    expect("loadingAutoComplete" in store.state).toBe(true);
+    expect(store.state.loadingAutoComplete).toBe(false);
+  });
+
+  it("getters has getLoadingAutoComplete", () => {
+    expect("getLoadingAutoComplete" in store.getters).toBe(true);
+  });
 });

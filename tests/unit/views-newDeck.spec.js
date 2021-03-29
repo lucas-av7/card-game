@@ -4,6 +4,7 @@ import NewDeck from "@/views/NewDeck";
 import { config } from "@vue/test-utils";
 import { userDecksMock } from "./testUtils/decks";
 import { mutations } from "@/store/mutations.js";
+import { state } from "../../src/store/state";
 
 config.showDeprecationWarnings = false;
 
@@ -18,6 +19,9 @@ describe("NewDeck.vue - view", () => {
     },
     getUsersDecks: (state) => {
       return state.userDecks;
+    },
+    getLoadingAutoComplete: () => {
+      return state.loadingAutoComplete;
     },
   };
 

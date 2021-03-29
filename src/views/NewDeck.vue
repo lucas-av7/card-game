@@ -6,7 +6,8 @@
     <section class="search-section">
       <div class="search-flex-box">
         <div class="search-icon">
-          <i class="fas fa-search"></i>
+          <i v-if="loadingAutoComplete" class="fas fa-search animated"></i>
+          <i v-else class="fas fa-search static"></i>
         </div>
         <input
           class="input-card-search"
@@ -99,6 +100,7 @@ export default {
     ...mapGetters({
       tmpDeck: "getTmpDeck",
       getAutocomplete: "getAutocomplete",
+      loadingAutoComplete: "getLoadingAutoComplete",
     }),
   },
   methods: {
@@ -198,6 +200,14 @@ export default {
   height: 40px;
   line-height: 40px;
   width: 40px;
+}
+
+.animated {
+  -webkit-animation: rotating 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  -moz-animation: rotating 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  -ms-animation: rotating 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  -o-animation: rotating 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  animation: rotating 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
 }
 
 .new-deck h2,

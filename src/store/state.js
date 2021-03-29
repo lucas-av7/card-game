@@ -7,4 +7,5 @@ export const state = {
   globalLoading: false,
   userDecks: [],
   tmpDeck: [],
+  loadingAutoComplete: false,
 };

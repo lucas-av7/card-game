@@ -1,15 +1,18 @@
 import { scryFallAutoComplete } from "@/services/scryfall";
 
 export const actions = {
-  fetchAutocomplete({ commit }, text) {
+  fetchAutocomplete({ commit, state }, text) {
+    state.loadingAutoComplete = true;
     scryFallAutoComplete(text)
       .then((response) => {
         commit("changeAutocomplete", response.data.data);
+        state.loadingAutoComplete = false;
       })
       .catch((error) => {
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
+        state.loadingAutoComplete = false;
       });
   },
   removeDeck({ commit, state }, index) {

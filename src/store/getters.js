@@ -14,4 +14,7 @@ export const getters = {
   getTmpDeck: (state) => {
     return state.tmpDeck;
   },
+  getLoadingAutoComplete: (state) => {
+    return state.loadingAutoComplete;
+  },
 };
