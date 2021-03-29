@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "TmpDeck",
@@ -37,6 +37,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["removeCardFromTmpDeck"]),
     saveDeck() {
       let userDecks = this.$store.getters.getUsersDecks;
       const newDeck = [...userDecks];
@@ -56,7 +57,7 @@ export default {
       this.$router.push("/");
     },
     removeCard(index) {
-      this.$store.dispatch("removeCardFromTmpDeck", index);
+      this.removeCardFromTmpDeck(index);
     },
   },
 };

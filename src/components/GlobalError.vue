@@ -7,12 +7,17 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "GlobalError",
   props: ["error"],
+  methods: {
+    ...mapActions(["addTextError"]),
+  },
   created() {
     setTimeout(() => {
-      this.$store.dispatch("addTextError", "");
+      this.addTextError("");
     }, 3500);
   },
 };

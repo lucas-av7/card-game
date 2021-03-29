@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import ModalConfirmation from "@/components/ModalConfirmation";
 
 export default {
@@ -56,9 +56,10 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["removeDeck"]),
     deleteDeck() {
       this.$router.push("/");
-      this.$store.dispatch("removeDeck", this.id - 1);
+      this.removeDeck(this.id - 1);
     },
     editDeck() {
       this.$router.push({ name: "EditDeck", params: { id: this.id } });

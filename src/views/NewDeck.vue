@@ -75,7 +75,7 @@
 import AutoCompleteBox from "@/components/AutoCompleteBox";
 import TmpDeck from "@/components/TmpDeck";
 import { scryFallSearchCard } from "@/services/scryfall";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import _ from "lodash";
 
 export default {
@@ -104,9 +104,10 @@ export default {
     }),
   },
   methods: {
+    ...mapActions(["addCardToTmpDeck", "addTextError", "fetchAutocomplete"]),
     callGetAutocomplete: _.debounce(function () {
       if (this.searchText.length < 2) return;
-      this.$store.dispatch("fetchAutocomplete", this.searchText);
+      this.fetchAutocomplete(this.searchText);
     }, 600),
     autoCompleteSearch(value) {
       this.searchText = value;
@@ -119,7 +120,7 @@ export default {
     },
     async searchCard() {
       if (this.searchText.length < 3) {
-        this.$store.dispatch("addTextError", "At least 3 letters to search");
+        this.addTextError("At least 3 letters to search");
         return;
       }
       this.autoCompleteShow = false;
@@ -138,7 +139,7 @@ export default {
         this.pagination.hasMore = data.has_more;
         this.cards = cards;
       } catch (error) {
-        this.$store.dispatch("addTextError", "Error fetching search results");
+        this.addTextError("Error fetching search results");
         this.pagination.totalCards = 0;
         this.cards = [];
       }
@@ -146,7 +147,7 @@ export default {
       this.$store.commit("changeGlobalLoading", false);
     },
     addCard(card) {
-      this.$store.dispatch("addCardToTmpDeck", card);
+      this.addCardToTmpDeck(card);
     },
   },
   watch: {

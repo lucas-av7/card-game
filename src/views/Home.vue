@@ -25,11 +25,12 @@
 <script>
 import Deck from "@/components/Deck";
 import { scryFallRandomCard } from "@/services/scryfall";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Home",
   methods: {
+    ...mapActions(["addCardToTmpDeck", "addTextError"]),
     goToNewDeckView() {
       this.$router.push("/new-deck");
     },
@@ -45,14 +46,14 @@ export default {
 
           if (data.image_uris == undefined) continue;
 
-          this.$store.dispatch("addCardToTmpDeck", data);
+          this.addCardToTmpDeck(data);
           this.$store.commit("changeAmountTrack", {
             cards: this.tmpDeck.length,
             minQtyCard,
           });
         }
       } catch {
-        this.$store.dispatch("addTextError", "Error fetching random card");
+        this.addTextError("Error fetching random card");
         this.$store.commit("changeGlobalLoading", false);
         this.$store.commit("changeAmountTrack", { cards: 0, minQtyCard: 0 });
         this.$store.commit("changeTmpDeck", []);
