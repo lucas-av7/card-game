@@ -190,15 +190,6 @@ export default {
   filter: none;
 }
 
-@keyframes up-card {
-  0% {
-    bottom: -200px;
-  }
-  100% {
-    bottom: 0;
-  }
-}
-
 @media screen and (max-height: 450px) {
   .tmp-deck {
     height: 150px;

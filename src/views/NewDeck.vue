@@ -326,64 +326,6 @@ export default {
   width: 210px;
 }
 
-.scale-in-enter-active {
-  animation: scale-in-ver-top 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-.scale-in-leave-active {
-  animation: scale-out-ver-top 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-}
-
-@keyframes scale-out-ver-top {
-  0% {
-    transform: scaleY(1);
-    transform-origin: 100% 0%;
-  }
-  100% {
-    transform: scaleY(0);
-    transform-origin: 100% 0%;
-  }
-}
-
-@keyframes scale-in-ver-top {
-  0% {
-    transform: scaleY(0);
-    transform-origin: 100% 0%;
-  }
-  100% {
-    transform: scaleY(1);
-    transform-origin: 100% 0%;
-  }
-}
-
-.scale-in-bottom-enter-active {
-  animation: scale-in-bt-vr-tp 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-.scale-in-bottom-leave-active {
-  animation: scale-out-bt-vr-tp 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-}
-
-@keyframes scale-out-bt-vr-tp {
-  0% {
-    transform: scaleY(1);
-    transform-origin: 0% 100%;
-  }
-  100% {
-    transform: scaleY(0);
-    transform-origin: 0% 100%;
-  }
-}
-
-@keyframes scale-in-bt-vr-tp {
-  0% {
-    transform: scaleY(0);
-    transform-origin: 0% 100%;
-  }
-  100% {
-    transform: scaleY(1);
-    transform-origin: 0% 100%;
-  }
-}
-
 @media screen and (max-width: 510px) {
   .search-section {
     margin: 0 10px;

@@ -22,6 +22,9 @@ export default {
 </script>
 
 <style>
+@import "./animations/animations.css";
+@import "./animations/transitions.css";
+
 :root {
   --confirm: #5cc42c;
   --danger: #d62828;
