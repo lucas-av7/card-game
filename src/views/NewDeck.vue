@@ -75,7 +75,7 @@
 import AutoCompleteBox from "@/components/AutoCompleteBox";
 import TmpDeck from "@/components/TmpDeck";
 import { scryFallSearchCard } from "@/services/scryfall";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import _ from "lodash";
 
 export default {
@@ -105,6 +105,11 @@ export default {
   },
   methods: {
     ...mapActions(["addCardToTmpDeck", "addTextError", "fetchAutocomplete"]),
+    ...mapMutations([
+      "changeAutocomplete",
+      "changeGlobalLoading",
+      "changeTmpDeck",
+    ]),
     callGetAutocomplete: _.debounce(function () {
       if (this.searchText.length < 2) return;
       this.fetchAutocomplete(this.searchText);
@@ -126,7 +131,7 @@ export default {
       this.autoCompleteShow = false;
       this.cards = [];
       this.showPagination = false;
-      this.$store.commit("changeGlobalLoading", true);
+      this.changeGlobalLoading(true);
       try {
         const { data } = await scryFallSearchCard(
           this.searchText,
@@ -144,7 +149,7 @@ export default {
         this.cards = [];
       }
       this.showPagination = true;
-      this.$store.commit("changeGlobalLoading", false);
+      this.changeGlobalLoading(false);
     },
     addCard(card) {
       this.addCardToTmpDeck(card);
@@ -152,15 +157,15 @@ export default {
   },
   watch: {
     searchText: function (value) {
-      if (value.length < 2) this.$store.commit("changeAutocomplete", []);
+      if (value.length < 2) this.changeAutocomplete([]);
     },
   },
   created() {
-    this.$store.commit("changeAutocomplete", []);
-    this.$store.commit("changeTmpDeck", []);
+    this.changeAutocomplete([]);
+    this.changeTmpDeck([]);
     if (this.id) {
       let userDecks = this.$store.getters.getUsersDecks;
-      this.$store.commit("changeTmpDeck", userDecks[this.id - 1]);
+      this.changeTmpDeck(userDecks[this.id - 1]);
     }
   },
 };

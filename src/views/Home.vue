@@ -25,20 +25,26 @@
 <script>
 import Deck from "@/components/Deck";
 import { scryFallRandomCard } from "@/services/scryfall";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "Home",
   methods: {
     ...mapActions(["addCardToTmpDeck", "addTextError"]),
+    ...mapMutations([
+      "changeTmpDeck",
+      "changeGlobalLoading",
+      "changeAmountTrack",
+      "changeUsersDecks",
+    ]),
     goToNewDeckView() {
       this.$router.push("/new-deck");
     },
     async randomDeck() {
       const minQtyCard = 60;
-      this.$store.commit("changeTmpDeck", []);
-      this.$store.commit("changeGlobalLoading", true);
-      this.$store.commit("changeAmountTrack", { cards: 0, minQtyCard });
+      this.changeTmpDeck([]);
+      this.changeGlobalLoading(true);
+      this.changeAmountTrack({ cards: 0, minQtyCard });
 
       try {
         while (this.tmpDeck.length < minQtyCard) {
@@ -47,26 +53,26 @@ export default {
           if (data.image_uris == undefined) continue;
 
           this.addCardToTmpDeck(data);
-          this.$store.commit("changeAmountTrack", {
+          this.changeAmountTrack({
             cards: this.tmpDeck.length,
             minQtyCard,
           });
         }
       } catch {
         this.addTextError("Error fetching random card");
-        this.$store.commit("changeGlobalLoading", false);
-        this.$store.commit("changeAmountTrack", { cards: 0, minQtyCard: 0 });
-        this.$store.commit("changeTmpDeck", []);
+        this.changeGlobalLoading(false);
+        this.changeAmountTrack({ cards: 0, minQtyCard: 0 });
+        this.changeTmpDeck([]);
         return;
       }
 
       let userDecks = this.getUsersDecks;
       const newDecks = [...userDecks, this.tmpDeck];
 
-      this.$store.commit("changeUsersDecks", newDecks);
-      this.$store.commit("changeGlobalLoading", false);
-      this.$store.commit("changeAmountTrack", { cards: 0, minQtyCard: 0 });
-      this.$store.commit("changeTmpDeck", []);
+      this.changeUsersDecks(newDecks);
+      this.changeGlobalLoading(false);
+      this.changeAmountTrack({ cards: 0, minQtyCard: 0 });
+      this.changeTmpDeck([]);
     },
     viewDeck(index) {
       this.$router.push({ name: "ViewDeck", params: { id: index + 1 } });

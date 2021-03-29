@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "TmpDeck",
@@ -38,6 +38,7 @@ export default {
   },
   methods: {
     ...mapActions(["removeCardFromTmpDeck"]),
+    ...mapMutations(["changeUsersDecks", "changeTmpDeck"]),
     saveDeck() {
       let userDecks = this.$store.getters.getUsersDecks;
       const newDeck = [...userDecks];
@@ -48,12 +49,12 @@ export default {
         newDeck.push(this.tmpDeck);
       }
 
-      this.$store.commit("changeUsersDecks", newDeck);
-      this.$store.commit("changeTmpDeck", []);
+      this.changeUsersDecks(newDeck);
+      this.changeTmpDeck([]);
       this.$router.push("/");
     },
     cancelDeck() {
-      this.$store.commit("changeTmpDeck", []);
+      this.changeTmpDeck([]);
       this.$router.push("/");
     },
     removeCard(index) {
