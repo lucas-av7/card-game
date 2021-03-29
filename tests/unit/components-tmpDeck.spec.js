@@ -1,6 +1,7 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import { userDecksMock } from "./testUtils/decks";
 import TmpDeck from "@/components/TmpDeck";
+import ViewDeck from "@/views/ViewDeck";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
 import { config } from "@vue/test-utils";
@@ -10,7 +11,18 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(VueRouter);
 
-const router = new VueRouter();
+const routes = [
+  {
+    path: "/view-deck/:id",
+    name: "ViewDeck",
+    component: ViewDeck,
+    props: true,
+  },
+];
+
+const router = new VueRouter({
+  routes,
+});
 
 let state = {
   userDecks: userDecksMock,

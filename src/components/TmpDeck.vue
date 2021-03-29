@@ -45,13 +45,14 @@ export default {
 
       if (this.editId) {
         newDeck[this.editId - 1] = this.tmpDeck;
+        this.$router.push({ name: "ViewDeck", params: { id: this.editId } });
       } else {
         newDeck.push(this.tmpDeck);
+        this.$router.push("/");
       }
 
       this.changeUsersDecks(newDeck);
       this.changeTmpDeck([]);
-      this.$router.push("/");
     },
     cancelDeck() {
       this.changeTmpDeck([]);
