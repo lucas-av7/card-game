@@ -5,10 +5,6 @@ describe("Scryfall - service", () => {
     expect(scryfall.instance.defaults.baseURL).toBe("https://api.scryfall.com");
   });
 
-  it("scryFallSets method exists", () => {
-    expect(scryfall.scryFallSets).toBeDefined();
-  });
-
   it("scryFallRandomCard method exists", () => {
     expect(scryfall.scryFallRandomCard).toBeDefined();
   });

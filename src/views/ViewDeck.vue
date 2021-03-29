@@ -47,13 +47,6 @@ export default {
   props: ["id"],
   computed: {
     ...mapGetters(["getUsersDecks"]),
-    basicLandCards() {
-      let count = 0;
-      this.getUsersDecks[this.id - 1].map((card) => {
-        if (card.type_line.includes("Basic Land")) count += 1;
-      });
-      return count;
-    },
     totalCards() {
       let count = 0;
       this.getUsersDecks[this.id - 1].map((card) => {

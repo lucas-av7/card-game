@@ -37,7 +37,7 @@
       <div class="page-info">
         <p>
           The last search founds a total of {{ pagination.totalCards }}
-          {{ pagination.totalCards ? "cards" : "card" }}.
+          {{ pagination.totalCards > 1 ? "cards" : "card" }}.
         </p>
       </div>
       <div class="buttons-area">

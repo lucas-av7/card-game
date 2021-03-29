@@ -18,6 +18,12 @@ describe("ViewDeck.vue - view", () => {
 
   const routes = [
     {
+      path: "/view-deck/:id",
+      name: "ViewDeck",
+      component: ViewDeck,
+      props: true,
+    },
+    {
       path: "/edit-deck/:id",
       name: "EditDeck",
       component: NewDeck,
@@ -35,8 +41,13 @@ describe("ViewDeck.vue - view", () => {
     getUsersDecks: () => userDecksMock,
   };
 
+  let actions = {
+    removeDeck: jest.fn(),
+  };
+
   let store = new Vuex.Store({
     getters,
+    actions,
   });
 
   const wrapper = shallowMount(ViewDeck, {
@@ -96,6 +107,13 @@ describe("ViewDeck.vue - view", () => {
       name: "ModalConfirmation",
     });
     expect(ModalConfirmation.exists()).toBe(true);
+  });
+
+  it("deleteDeck method calls removeDeck action", async () => {
+    wrapper.vm.$router.push({ name: "ViewDeck", params: { id: 1 } });
+    await wrapper.vm.deleteDeck();
+    expect(wrapper.vm.$route.path).toBe("/");
+    expect(actions.removeDeck).toHaveBeenCalled();
   });
 
   it("renders deck-status correctly", async () => {

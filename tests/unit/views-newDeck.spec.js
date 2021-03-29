@@ -167,6 +167,14 @@ describe("NewDeck.vue - view", () => {
     expect(buttons.length).toBe(2);
   });
 
+  it("render text status properly", async () => {
+    const status = wrapper.find(".page-info > p");
+    await wrapper.setData({ pagination: { totalCards: 1 } });
+    expect(status.text()).toContain("card.");
+    await wrapper.setData({ pagination: { totalCards: 10 } });
+    expect(status.text()).toContain("cards.");
+  });
+
   it("Previous is disbled in page one and Next when in last page", async () => {
     const buttonsArea = wrapper.find(".buttons-area");
     const buttons = buttonsArea.findAll("button");

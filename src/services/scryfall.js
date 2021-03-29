@@ -4,10 +4,6 @@ export const instance = axios.create({
   baseURL: "https://api.scryfall.com",
 });
 
-export const scryFallSets = () => {
-  return instance.get("/sets");
-};
-
 export const scryFallRandomCard = () => {
   return instance.get("/cards/random");
 };
