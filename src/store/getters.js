@@ -17,4 +17,7 @@ export const getters = {
   getLoadingAutoComplete: (state) => {
     return state.loadingAutoComplete;
   },
+  getGlobalError(state) {
+    return state.globalError;
+  },
 };

@@ -118,7 +118,10 @@ export default {
       this.autoCompleteShow = state;
     },
     async searchCard() {
-      if (this.searchText.length < 3) return;
+      if (this.searchText.length < 3) {
+        this.$store.dispatch("addTextError", "At least 3 letters to search");
+        return;
+      }
       this.autoCompleteShow = false;
       this.cards = [];
       this.showPagination = false;
@@ -135,9 +138,7 @@ export default {
         this.pagination.hasMore = data.has_more;
         this.cards = cards;
       } catch (error) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        this.$store.dispatch("addTextError", "Error fetching search results");
         this.pagination.totalCards = 0;
         this.cards = [];
       }

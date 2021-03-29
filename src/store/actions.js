@@ -8,10 +8,8 @@ export const actions = {
         commit("changeAutocomplete", response.data.data);
         state.loadingAutoComplete = false;
       })
-      .catch((error) => {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+      .catch(() => {
+        state.globalError = "Error fetching auto complete data";
         state.loadingAutoComplete = false;
       });
   },
@@ -39,11 +37,10 @@ export const actions = {
       if (isBasicLand || sameCard < 4) {
         newTmpDeck[indexSameCard].amount += 1;
         commit("changeTmpDeck", newTmpDeck);
-        return;
       } else {
-        console.log("Max of 4 card permited");
-        return;
+        state.globalError = "Only 4 card of the same name, except basic land";
       }
+      return;
     }
 
     const card = {
@@ -66,5 +63,8 @@ export const actions = {
       newTmpDeck.splice(index, 1);
     }
     commit("changeTmpDeck", newTmpDeck);
+  },
+  addTextError({ state }, text) {
+    state.globalError = text;
   },
 };

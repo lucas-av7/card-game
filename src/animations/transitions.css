@@ -55,3 +55,21 @@
     transform-origin: 0% 100%;
   }
 }
+
+.errorAnimation-enter-active {
+  animation: opacityFull 0.5s ease;
+}
+
+.errorAnimation-leave-active {
+  animation: opacityZero 0.5s ease;
+}
+
+@keyframes opacityFull {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes opacityZero {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}

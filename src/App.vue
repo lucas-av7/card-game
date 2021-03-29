@@ -5,18 +5,25 @@
     </router-link>
     <router-view />
     <GlobalLoading v-show="getGlobalLoading" />
+    <transition name="errorAnimation">
+      <GlobalError v-if="globalError" :error="globalError" />
+    </transition>
   </div>
 </template>
 
 <script>
 import GlobalLoading from "@/components/GlobalLoading";
+import GlobalError from "@/components/GlobalError";
 import { mapGetters } from "vuex";
 
 export default {
   name: "App",
-  components: { GlobalLoading },
+  components: { GlobalLoading, GlobalError },
   computed: {
-    ...mapGetters(["getGlobalLoading"]),
+    ...mapGetters({
+      getGlobalLoading: "getGlobalLoading",
+      globalError: "getGlobalError",
+    }),
   },
 };
 </script>

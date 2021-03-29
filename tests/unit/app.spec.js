@@ -8,6 +8,7 @@ describe("App.vue", () => {
 
   let getters = {
     getGlobalLoading: () => false,
+    getGlobalError: () => "Error test",
   };
 
   let store = new Vuex.Store({
@@ -28,5 +29,15 @@ describe("App.vue", () => {
   it("has GlobalLoading component", () => {
     const globalLoading = wrapper.findComponent({ name: "GlobalLoading" });
     expect(globalLoading.exists()).toBe(true);
+  });
+
+  it("has GlobalError component", () => {
+    const GlobalError = wrapper.findComponent({ name: "GlobalError" });
+    expect(GlobalError.exists()).toBe(true);
+  });
+
+  it("GlobalError renders text properly", () => {
+    const GlobalError = wrapper.findComponent({ name: "GlobalError" });
+    expect(GlobalError.html()).toContain("Error test");
   });
 });

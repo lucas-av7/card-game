@@ -126,4 +126,17 @@ describe("Store - Vuex", () => {
   it("getters has getLoadingAutoComplete", () => {
     expect("getLoadingAutoComplete" in store.getters).toBe(true);
   });
+
+  it("actions has addTextError function", () => {
+    expect("addTextError" in store._actions).toBe(true);
+  });
+
+  it("getters has getGlobalError", () => {
+    expect("getGlobalError" in store.getters).toBe(true);
+  });
+
+  it("state has globalError", () => {
+    expect("globalError" in store.state).toBe(true);
+    expect(store.state.globalError).toBe("");
+  });
 });

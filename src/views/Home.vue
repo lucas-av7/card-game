@@ -51,10 +51,12 @@ export default {
             minQtyCard,
           });
         }
-      } catch (error) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+      } catch {
+        this.$store.dispatch("addTextError", "Error fetching random card");
+        this.$store.commit("changeGlobalLoading", false);
+        this.$store.commit("changeAmountTrack", { cards: 0, minQtyCard: 0 });
+        this.$store.commit("changeTmpDeck", []);
+        return;
       }
 
       let userDecks = this.getUsersDecks;
